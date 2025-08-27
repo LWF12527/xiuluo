@@ -88,7 +88,6 @@ class ListPageCollector:
 
         return base_url
 
-
     def process_task(self, task):
         """处理单个采集任务 - 仅采集列表页"""
         try:
@@ -104,7 +103,7 @@ class ListPageCollector:
                     html_content = self.basic_main.fetch_page(list_url)
 
                     # 解析列表页获取详情页链接和实际最大页数
-                    actual_max_page, house_detail_list = self.basic_main.parse_detail_page(html_content)
+                    actual_max_page, house_detail_list = self.basic_main.parse_detail_page(html_content=html_content, task_id=task['id'])
 
                     # 记录获取到的详情页链接数量
                     logger.info(f"ID={task['id']}-page={current_page}-获取到 {len(house_detail_list)} 个详情页链接")
@@ -135,7 +134,7 @@ class ListPageCollector:
                 except Exception as e:
                     logger.error(f"ID={task['id']}-page={current_page}, 处理列表页失败: {list_url} - {str(e)}")
                     error_log = f"{time.strftime('%Y-%m-%d %H:%M:%S')} - {str(e)}"
-                    if "反爬" not in str(e) and '没有' not in str(e): # 反爬错误不记录
+                    if "反爬" not in str(e) and '没有' not in str(e):  # 反爬错误不记录
                         # 更新错误计数和日志
                         self.db_manager.table_update(
                             table="58_queue",

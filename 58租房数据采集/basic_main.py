@@ -71,7 +71,7 @@ class BasicMain:
         raise Exception(f"页面请求失败: 已达最大重试次数({max_retries})")
 
     @staticmethod
-    def parse_detail_page(html_content):
+    def parse_detail_page(html_content, task_id):
         """解析详情页，提取房源信息"""
         tree = html.fromstring(html_content)
         house_list = tree.xpath('//ul[@class="house-list"]/li')
@@ -116,6 +116,7 @@ class BasicMain:
                 detail_url = detail_url_ele[0] if detail_url_ele else ''
 
                 house_detail = {
+                    "ass_id": task_id,
                     "title": title,
                     "price": price,
                     "area_size": area_size,

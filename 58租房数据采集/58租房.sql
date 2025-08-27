@@ -20,9 +20,10 @@ CREATE TABLE `58_queue` (
 
 CREATE TABLE `58_detail` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `ass_id` int(10) NOT NULL DEFAULT '0' COMMENT '关联表58_queue主键id',
   `title` varchar(200) NOT NULL DEFAULT '' COMMENT '标题',
   `price` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '价格',
-  `area_size` varchar(50) NOT NULL DEFAULT '' COMMENT '面积(平方米)',
+  `area_size` varchar(50) NOT NULL DEFAULT '' COMMENT '面积',
   `location` varchar(200) NOT NULL DEFAULT '' COMMENT '位置',
   `pic_urls` text COMMENT '图片链接',
   `detail_url` varchar(500) NOT NULL DEFAULT '' COMMENT '详情链接',
@@ -31,7 +32,7 @@ CREATE TABLE `58_detail` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `unq_detail` (`detail_url`(200)) COMMENT '详情链接唯一索引',
   KEY `idx_price` (`price`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='58房源详情表';
+) ENGINE=InnoDB AUTO_INCREMENT=9063 DEFAULT CHARSET=utf8mb4 COMMENT='58房源详情表';
 
 INSERT INTO `bstcollect_dev`.`58_queue` (`id`, `city`, `area`, `area_pingyin`, `min_price`, `max_price`, `house_type`, `rental_mode`, `current_page`, `max_pages`, `sync_status`, `retry_count`, `error_log`, `create_time`, `update_time`) VALUES (1, '北京', '朝阳', 'chaoyang', '1000', '3000', '两室', '合租/单间', 0, 10, 0, 0, '', '2025-08-27 09:52:32', '2025-08-27 16:35:17');
 INSERT INTO `bstcollect_dev`.`58_queue` (`id`, `city`, `area`, `area_pingyin`, `min_price`, `max_price`, `house_type`, `rental_mode`, `current_page`, `max_pages`, `sync_status`, `retry_count`, `error_log`, `create_time`, `update_time`) VALUES (2, '合肥', '包河', 'baohe', '500', '1000', '三室', '不限', 0, 10, 0, 0, '', '2025-08-27 09:53:16', '2025-08-27 16:35:17');

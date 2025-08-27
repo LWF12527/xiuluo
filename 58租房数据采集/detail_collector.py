@@ -97,7 +97,7 @@ class ListPageCollector:
             while current_page <= task['max_pages']:
                 # 构建列表URL
                 list_url = self.build_list_url(task, current_page)
-                logger.info(f"处理列表页: {list_url}")
+                logger.info(f"ID={task['id']}-处理列表页: {list_url}")
 
                 try:
                     # 获取列表页内容
@@ -107,7 +107,7 @@ class ListPageCollector:
                     actual_max_page, house_detail_list = self.basic_main.parse_detail_page(html_content)
 
                     # 记录获取到的详情页链接数量
-                    logger.info(f"获取到 {len(house_detail_list)} 个详情页链接")
+                    logger.info(f"ID={task['id']}-page={current_page}-获取到 {len(house_detail_list)} 个详情页链接")
 
                     # 更新最大页数（如果实际页数小于预设值）
                     if actual_max_page < task['max_pages']:

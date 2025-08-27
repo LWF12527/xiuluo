@@ -22,7 +22,7 @@ CREATE TABLE `58_detail` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(200) NOT NULL DEFAULT '' COMMENT '标题',
   `price` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '价格',
-  `area_size` varchar(50) NOT NULL DEFAULT '' COMMENT '面积',
+  `area_size` varchar(50) NOT NULL DEFAULT '' COMMENT '面积(平方米)',
   `location` varchar(200) NOT NULL DEFAULT '' COMMENT '位置',
   `pic_urls` text COMMENT '图片链接',
   `detail_url` varchar(500) NOT NULL DEFAULT '' COMMENT '详情链接',

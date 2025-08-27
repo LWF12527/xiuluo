@@ -15,16 +15,6 @@ logger = logging.getLogger(__name__)
 
 
 class BasicMain:
-    def __init__(self):
-        self.user_agents = [
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
-            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.1 Safari/605.1.15",
-            "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36"
-        ]
-
-    def get_random_user_agent(self):
-        return random.choice(self.user_agents)
-
     def proxy(self):  # 巨量ip国内版——包量
         proxy_url = 'http://v2.api.juliangip.com/dynamic/getips?auth_info=1&auto_white=1&filter=1&num=1&pt=2&result_type=text&split=1&trade_no=1908141527512576&sign=127fe8b1b841e296617fcd765c7af125'
         proxy_str = requests.get(proxy_url).text

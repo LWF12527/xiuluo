@@ -17,7 +17,7 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 # 全局配置
-MAX_WORKERS = 1
+MAX_WORKERS = 5
 BATCH_SIZE = 20
 MAX_RETRY = 3
 
@@ -135,7 +135,7 @@ class ListPageCollector:
                 except Exception as e:
                     logger.error(f"处理列表页失败: {list_url} - {str(e)}")
                     error_log = f"{time.strftime('%Y-%m-%d %H:%M:%S')} - {str(e)}"
-                    if "反爬" not in str(e): # 反爬错误不记录
+                    if "反爬" not in str(e) and '没有' not in str(e): # 反爬错误不记录
                         # 更新错误计数和日志
                         self.db_manager.table_update(
                             table="58_queue",

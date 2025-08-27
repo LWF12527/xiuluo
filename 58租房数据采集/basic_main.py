@@ -2,11 +2,9 @@ import json
 import logging
 import random
 import re
-from operator import ifloordiv
 
 import requests
 from lxml import html
-from selenium.webdriver.support.expected_conditions import element_selection_state_to_be
 
 # 配置日志
 logging.basicConfig(
@@ -26,6 +24,18 @@ class BasicMain:
 
     def get_random_user_agent(self):
         return random.choice(self.user_agents)
+
+    def proxy(self):  # 巨量ip国内版——包量
+        proxy_url = 'http://v2.api.juliangip.com/dynamic/getips?auth_info=1&auto_white=1&filter=1&num=1&pt=2&result_type=text&split=1&trade_no=1908141527512576&sign=127fe8b1b841e296617fcd765c7af125'
+        proxy_str = requests.get(proxy_url).text
+        proxy_str_list = proxy_str.split(':')
+        proxy_ip = proxy_str_list[0] + ":" + proxy_str_list[1]
+        username = proxy_str_list[2]
+        password = proxy_str_list[3]
+        proxies = {
+            "http": "http://%(user)s:%(pwd)s@%(proxy)s/" % {"user": username, "pwd": password, "proxy": proxy_ip}
+        }
+        return proxies
 
     def fetch_page(self, url, timeout=10):
         """获取网页内容"""
@@ -48,7 +58,7 @@ class BasicMain:
         }
 
         try:
-            response = requests.get(url, headers=headers, timeout=timeout)
+            response = requests.get(url, headers=headers, timeout=timeout, proxies=self.proxy())
             # 检测反爬
             if "验证" in response.text or "异常访问" in response.text:
                 raise Exception("触发反爬机制")
@@ -70,29 +80,33 @@ class BasicMain:
             max_page = int(max_page_ele[0]) if max_page_ele else 1
             for item in house_list:
                 # 提取标题
-                title_ele = item.xpath('./div/h2/a/@href')
+                title_ele = item.xpath('./div/h2/a/text()')
                 title = title_ele[0].strip() if title_ele else ""
-
+                # 没有标题的跳过
+                if not title:
+                    continue
                 # 提取价格
-                price_ele = tree.xpath('.//div[@class="money"]/b/text()')
+                price_ele = item.xpath('.//div[@class="money"]/b/text()')
                 price = float(price_ele[0].strip()) if price_ele else 0.0
 
                 # 提取面积
-                area_size_ele = tree.xpath('.//div/p[@class="room"]/text()')
+                area_size_ele = item.xpath('.//div/p[@class="room"]/text()')
                 area_size = area_size_ele[0].strip() if area_size_ele else ""
                 if area_size:
                     match = re.search(r'(\d+(?:\.\d+)?)\s*(?:㎡)', area_size)
                     area_size = float(match.group(1)) if match else 0.0
 
                 # 提取位置
-                location_ele = tree.xpath('.//div[@class="des"]/p[@class="infor"]//text()')
-                location = " - ".join([part.strip() for part in location_ele]) if location_ele else ""
+                location_ele = item.xpath('.//div[@class="des"]/p[@class="infor"]//text()')
+                location = "-".join([part.strip() for part in location_ele]) if location_ele else ""
 
                 # 提取图片
-                pic_urls = tree.xpath('./div/a/img/@src')
+                pic_urls_ele = item.xpath('./div/a/img/@lazy_src')
+                pic_urls = pic_urls_ele[0] if pic_urls_ele else ''
 
                 # 提取链接
-                detail_url = tree.xpath('./div/a/@href')
+                detail_url_ele = item.xpath('./div/a/@href')
+                detail_url = detail_url_ele[0] if detail_url_ele else ''
 
                 house_detail = {
                     "title": title,

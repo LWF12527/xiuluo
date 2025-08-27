@@ -2,7 +2,7 @@ CREATE TABLE `58_queue` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `city` varchar(100) NOT NULL DEFAULT '' COMMENT '城市',
   `area` varchar(100) NOT NULL DEFAULT '' COMMENT '区域',
-  `area_pingyin` varchar(100) NOT NULL DEFAULT '' COMMENT '区域拼音--自动翻译不正确',
+  `area_pingyin` varchar(100) NOT NULL DEFAULT '' COMMENT '区域拼音--参考网站拼音-有的需要加上城市缩写',
   `min_price` varchar(100) NOT NULL DEFAULT '' COMMENT '最低价格',
   `max_price` varchar(100) NOT NULL DEFAULT '' COMMENT '最高价格',
   `house_type` enum('不限','一室','两室','三室','四室','四室以上') NOT NULL DEFAULT '不限' COMMENT '房源类型: 不限、一室、两室、三室、四室、四室以上',
@@ -16,7 +16,7 @@ CREATE TABLE `58_queue` (
   `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `unq_task` (`area`,`min_price`,`house_type`,`rental_mode`) USING BTREE COMMENT '任务唯一索引'
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COMMENT='58采集任务队列表';
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COMMENT='58采集任务队列表';
 
 CREATE TABLE `58_detail` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,

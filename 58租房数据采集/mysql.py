@@ -96,7 +96,7 @@ class DbManager(object):
         values = tuple(values)
         flag = flag.rstrip(",")
         sql += fields + ") values (" + flag + ");"
-        Logger.info("sql：\n{} [{}]\n".format(sql, values))
+        # Logger.info("sql：\n{} [{}]\n".format(sql, values))
         try:
             self.execute(sql, values)
             # 获取自增id

@@ -1,7 +1,7 @@
 import json
 import logging
-import random
 import re
+import time
 
 import requests
 from lxml import html
@@ -23,11 +23,13 @@ class BasicMain:
         username = proxy_str_list[2]
         password = proxy_str_list[3]
         proxies = {
-            "http": "http://%(user)s:%(pwd)s@%(proxy)s/" % {"user": username, "pwd": password, "proxy": proxy_ip}
+            "http": "http://%(user)s:%(pwd)s@%(proxy)s/" % {"user": username, "pwd": password, "proxy": proxy_ip},
+            "https": "http://%(user)s:%(pwd)s@%(proxy)s/" % {"user": username, "pwd": password, "proxy": proxy_ip}
         }
+        print(proxies)
         return proxies
 
-    def fetch_page(self, url, timeout=10):
+    def fetch_page(self, url, timeout=10, max_retries=3):
         """获取网页内容"""
         headers = {
             "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
@@ -47,15 +49,26 @@ class BasicMain:
             "sec-ch-ua-platform": "\"Windows\""
         }
 
-        try:
-            response = requests.get(url, headers=headers, timeout=timeout, proxies=self.proxy())
-            # 检测反爬
-            if "验证" in response.text or "异常访问" in response.text:
-                raise Exception("触发反爬机制")
-            return response.text
-        except Exception as e:
-            logger.error(f"请求失败: {url} - {str(e)}")
-            raise
+        retry_count = 0
+        while retry_count < max_retries:
+            try:
+                # 每次重试获取新代理
+                response = requests.get(url, headers=headers, timeout=timeout, proxies=self.proxy())
+
+                # 检测反爬
+                if "验证" in response.text or "异常访问" in response.text or response.status_code >= 400:
+                    logger.info(f'出现反爬--重试次数 ={retry_count}')
+                return response.text  # 成功则返回内容
+
+            except Exception as e:
+                retry_count += 1
+                wait_time = 2 * retry_count  # 指数退避：等待时间递增
+                logger.warning(f"第{retry_count}次请求失败 ({url}): {str(e)} - {wait_time}秒后重试")
+                time.sleep(wait_time)
+
+        # 重试全部失败
+        logger.error(f"请求失败已达最大重试次数: {url}")
+        raise Exception(f"页面请求失败: 已达最大重试次数({max_retries})")
 
     @staticmethod
     def parse_detail_page(html_content):

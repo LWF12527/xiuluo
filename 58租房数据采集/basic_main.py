@@ -79,7 +79,11 @@ class BasicMain:
             raise Exception("没有找到房源数据！")
         house_detail_list = []
         try:
-            max_page_ele = tree.xpath('//li/div[@class="pager"]/a[last()-1]/span/text()')
+            # 这里到达最后一页的逻辑
+            max_page_ele = tree.xpath('//li/div[@class="pager"]/strong/span/text()')
+            if not max_page_ele:
+                # 非最后一页逻辑
+                max_page_ele = tree.xpath('//li/div[@class="pager"]/a[last()-1]/span/text()')
             max_page = int(max_page_ele[0]) if max_page_ele else 1
             for item in house_list:
                 # 提取标题
@@ -117,7 +121,7 @@ class BasicMain:
                     "area_size": area_size,
                     "location": location,
                     "detail_url": detail_url,
-                    "pic_urls": json.dumps(pic_urls)  # 图片URL列表转为JSON字符串存储
+                    "pic_urls": pic_urls  # 图片URL列表转为JSON字符串存储
                 }
                 print(house_detail)
                 house_detail_list.append(house_detail)

@@ -170,7 +170,7 @@ class DbManager(object):
             sql += " and %s" % where
         sql += ";"
         values = tuple(values)
-        Logger.info("sql：\n{} [{}]\n".format(sql, values))
+        Logger.info("sql：{} [{}]".format(sql, values))
         try:
             self.execute(sql, values)
             rowcount = self.cur.rowcount

@@ -1,13 +1,12 @@
+import configparser
+import logging as Logger
 import os
-import sys
+import warnings
 
 import pymysql
-import logging as Logger
-import configparser
 
 # 读取数据1
 os.getcwd()
-# os.chdir('E:/')
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 config_path = os.path.join(current_dir, 'config.ini')
@@ -18,6 +17,7 @@ files_read = config.read(config_path)
 # 正式bstcollect库
 collect_dev = config['collect_dev']
 
+warnings.filterwarnings('ignore', category=Warning, message=".*Duplicate entry.*")
 
 
 # 连接MySQL
@@ -73,15 +73,18 @@ class DbManager(object):
     ################################################################
     ################ 以下为封装好的执行方法：表、字段方式 ################
     ################################################################
-    # 新增并返回新增ID
     def table_insert(self, **kwargs):
         """
         table：必填，表名，如：table="test_table"
         data ：必填，更新数据，字典类型，如：data={"aaa": "666'6", "bbb": "888"}
+        ignore_duplicate：可选，是否忽略重复行，默认为False
         """
         table = kwargs["table"]
         data = kwargs["data"]
-        sql = "insert into %s (" % table
+        ignore_duplicate = kwargs.get("ignore_duplicate", False)
+
+        # 根据ignore_duplicate参数决定是否添加IGNORE关键字
+        sql = "INSERT {}INTO {} (".format("IGNORE " if ignore_duplicate else "", table)
         fields = ""
         values = []
         flag = ""
@@ -103,11 +106,12 @@ class DbManager(object):
             self.conn.rollback()
             raise Exception('添加失败')
 
-    def table_insert_batch(self, table, data):
+    def table_insert_batch(self, table, data, ignore_duplicate=False):
         """
         批量插入数据到指定表
         :param table: 表名，如 "test_table"
         :param data: 字典列表，形如 [{"column1": "value1", "column2": "value2"}, {"column1": "value3", "column2": "value4"}]
+        :param ignore_duplicate: 是否忽略重复行，默认为False
         """
         if not isinstance(data, list) or not all(isinstance(item, dict) for item in data):
             raise ValueError("data 必须是字典列表")
@@ -115,19 +119,19 @@ class DbManager(object):
         if not data:
             raise ValueError("data 不能为空")
 
-        fields = data[0].keys()
-        sql = f"INSERT INTO {table} ({', '.join(fields)}) VALUES "
+        # 根据ignore_duplicate参数决定是否添加IGNORE关键字
+        sql = f"INSERT {'IGNORE ' if ignore_duplicate else ''}INTO {table} ({', '.join(data[0].keys())}) VALUES "
 
         # 构建占位符和参数列表
         placeholders = []
         values = []
         for item in data:
-            placeholders.append("(" + ", ".join(["%s"] * len(fields)) + ")")
+            placeholders.append("(" + ", ".join(["%s"] * len(item)) + ")")
             values.extend(item.values())
 
         sql += ", ".join(placeholders) + ";"
 
-        Logger.info("sql：\n{} [{}]\n".format(sql, values))
+        # Logger.info("sql：\n{} [{}]\n".format(sql, values))
         try:
             self.execute(sql, values)
             # 获取最后插入的自增ID（如果需要的话）
@@ -138,7 +142,6 @@ class DbManager(object):
             Logger.error(f"插入失败: {e}")
             return None
 
-    # 修改数据并返回影响的行数
     def table_update(self, **kwargs):
         """
         table：必填，表名，如：table="test_table"

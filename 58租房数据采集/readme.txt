@@ -11,8 +11,8 @@ mysql+线程池+http请求爬取+ip代理
 58_detail：标题，价格，面积，位置，区域，图片链接,详情链接，（去重机制-唯一索引）
 数据库配置：config.ini
 数据库操作脚本：mysql.py
-采集脚本：58租房采集.py
+采集脚本：basic_main.py  detail_collector.py
 数据库创建：58租房.sql
 任务失败：数据库重试3次，切状态为0就是失败
 
-部署：pycharm，python，mysql本地，运行视频
+部署：pycharm，python，mysql,navicat本地，运行视频

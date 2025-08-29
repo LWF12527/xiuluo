@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>彩票选号生成器</title>
+<style>
+    *{margin:0;padding:0;box-sizing:border-box;font-family:'Microsoft YaHei',sans-serif}
+    body{background:linear-gradient(to bottom,#f0f8ff,#e1f5fe);min-height:100vh;padding:20px;color:#333}
+    .container{max-width:800px;margin:0 auto;background:#fff;border-radius:15px;box-shadow:0 0 20px rgba(0,0,0,.1);overflow:hidden}
+    header{background:linear-gradient(to right,#ff5252,#ff4081);color:#fff;padding:20px;text-align:center}
+    h1{font-size:28px;margin-bottom:10px;text-shadow:1px 1px 3px rgba(0,0,0,.3)}
+    .subtitle{font-size:16px;opacity:.9}
+    .tabs{display:flex;background:#f8f9fa;border-bottom:2px solid #e0e0e0}
+    .tab{flex:1;padding:15px;text-align:center;font-size:18px;font-weight:bold;cursor:pointer;transition:.3s;border-bottom:3px solid transparent}
+    .tab.active{background:#fff;color:#e91e63;border-bottom:3px solid #e91e63}
+    .lottery-content{display:none;padding:20px}
+    .lottery-content.active{display:block}
+    .section-title{text-align:center;margin:15px 0;color:#e91e63;font-size:20px;font-weight:bold}
+    .section-label{text-align:center;margin-bottom:15px;font-size:16px;color:#555}
+    .balls-container{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-bottom:20px}
+    .ball{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:16px;cursor:pointer;transition:.2s;box-shadow:0 2px 5px rgba(0,0,0,.2)}
+    .red-ball{background:#fff;color:#e91e63;border:2px solid #e91e63}
+    .red-ball.selected{background:#e91e63;color:#fff}
+    .blue-ball{background:#fff;color:#2196f3;border:2px solid #2196f3}
+    .blue-ball.selected{background:#2196f3;color:#fff}
+    .control-panel{display:flex;justify-content:center;gap:15px;margin:25px 0}
+    .btn{padding:12px 25px;border:none;border-radius:5px;font-size:16px;font-weight:bold;cursor:pointer;transition:.3s;box-shadow:0 3px 5px rgba(0,0,0,.2)}
+    .btn-generate{background:#4caf50;color:#fff}.btn-generate:hover{background:#388e3c}
+    .btn-reset{background:#f44336;color:#fff}.btn-reset:hover{background:#d32f2f}
+    .btn-stop{background:#ff5722;color:#fff}.btn-stop:hover{background:#e64a19}
+    .selected-numbers{text-align:center;padding:15px;background:#f5f5f5;border-radius:10px;margin:20px 0;font-size:18px;font-weight:bold}
+    .red-number{color:#e91e63;margin:0 3px}.blue-number{color:#2196f3;margin:0 3px}.separator{color:#777;margin:0 5px}
+    .batch-control{display:flex;flex-direction:column;align-items:center;margin:20px 0;gap:10px}
+    .batch-control-row{display:flex;align-items:center;gap:10px}
+    .batch-control label{font-weight:bold;min-width:120px}
+    .batch-control input{width:80px;padding:8px;border:2px solid #ddd;border-radius:5px;text-align:center}
+    .download-section{text-align:center;margin:20px 0;padding:15px;background:#f8f9fa;border-radius:10px}
+    .download-btn{padding:12px 30px;background:#9c27b0;color:#fff;border:none;border-radius:5px;font-size:16px;font-weight:bold;cursor:pointer;transition:.3s;box-shadow:0 3px 5px rgba(0,0,0,.2);margin:10px}
+    .download-btn:hover{background:#7b1fa2}
+    .path-selector{display:flex;align-items:center;justify-content:center;margin:15px 0;gap:10px}
+    .path-display{padding:8px 15px;background:#fff;border:1px solid #ddd;border-radius:5px;min-width:300px;text-align:left;font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .select-path-btn{padding:8px 15px;background:#2196f3;color:#fff;border:none;border-radius:5px;cursor:pointer;font-size:14px}
+    .select-path-btn:hover{background:#0d8bf2}
+    footer{text-align:center;padding:20px;color:#777;font-size:14px;background:#f8f9fa;border-top:1px solid #e0e0e0}
+    .help-box{background:#e3f2fd;border-radius:8px;padding:15px;margin:20px 0;font-size:14px}
+    .help-title{font-weight:bold;color:#1976d2;margin-bottom:8px}
+    .status-message{margin-top:15px;padding:10px;border-radius:5px;font-size:14px;text-align:center}
+    .status-success{background:#e8f5e9;color:#2e7d32}.status-error{background:#ffebee;color:#c62828}
+    /* 新增隐藏控制面板的类 */
+    .hide-controls .control-panel { display: none !important; }
+</style>
+</head>
+<body>
+<div class="container" id="capture-root">
+    <header>
+        <h1>彩票选号生成器</h1>
+        <p class="subtitle">随机生成双色球和大乐透号码</p>
+    </header>
+
+    <div class="tabs">
+        <div class="tab active" data-target="ssq">双色球选号器</div>
+        <div class="tab" data-target="dlt">大乐透选号器</div>
+    </div>
+
+    <!-- 双色球 -->
+    <section class="lottery-content active" id="ssq-content">
+        <div class="section-title">双色球选号器</div>
+        <div class="section-label">红球区（选择6个）</div>
+        <div class="balls-container" id="ssq-red-balls"></div>
+        <div class="section-label">蓝球区（选择1个）</div>
+        <div class="balls-container" id="ssq-blue-balls"></div>
+
+        <div class="control-panel">
+            <button class="btn btn-generate" id="ssq-generate">开始选号</button>
+            <button class="btn btn-stop" id="ssq-stop">停止</button>
+        </div>
+
+        <div class="selected-numbers" id="ssq-selected">
+            选中的号码：<span class="red-number">2</span> <span class="red-number">8</span> <span class="red-number">13</span> <span class="red-number">16</span> <span class="red-number">21</span> <span class="red-number">23</span> <span class="separator">→</span> <span class="blue-number">12</span>
+        </div>
+
+        <div class="batch-control">
+            <div class="batch-control-row">
+                <label>生成图片数量:</label>
+                <input type="number" id="ssq-count" min="1" max="100" value="5">
+            </div>
+            <div class="path-selector">
+                <div class="path-display" id="ssq-path-display">未选择保存路径</div>
+                <button class="select-path-btn" id="ssq-select-path">选择路径</button>
+            </div>
+        </div>
+
+        <div class="download-section">
+            <button class="download-btn" id="ssq-download">生成并保存双色球图片</button>
+            <div id="ssq-status" class="status-message"></div>
+        </div>
+    </section>
+
+    <!-- 大乐透 -->
+    <section class="lottery-content" id="dlt-content">
+        <div class="section-title">大乐透选号器</div>
+
+        <div class="section-label">前区红球（选择5个）</div>
+        <div class="balls-container" id="dlt-red-balls"></div>
+
+        <div class="section-label">后区蓝球（选择2个）</div>
+        <div class="balls-container" id="dlt-blue-balls"></div>
+
+        <div class="control-panel">
+            <button class="btn btn-generate" id="dlt-generate">开始选号</button>
+            <button class="btn btn-stop" id="dlt-stop">停止</button>
+        </div>
+
+        <div class="selected-numbers" id="dlt-selected">
+            选中的号码：<span class="red-number">3</span> <span class="red-number">11</span> <span class="red-number">13</span> <span class="red-number">22</span> <span class="red-number">31</span> <span class="blue-number">2</span> <span class="blue-number">8</span>
+        </div>
+
+        <div class="batch-control">
+            <div class="batch-control-row">
+                <label>生成图片数量:</label>
+                <input type="number" id="dlt-count" min="1" max="100" value="5">
+            </div>
+            <div class="path-selector">
+                <div class="path-display" id="dlt-path-display">未选择保存路径</div>
+                <button class="select-path-btn" id="dlt-select-path">选择路径</button>
+            </div>
+        </div>
+
+        <div class="download-section">
+            <button class="download-btn" id="dlt-download">生成并保存大乐透图片</button>
+            <div id="dlt-status" class="status-message"></div>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2023 彩票选号生成器 | 本工具仅供娱乐参考</p>
+    </footer>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<script>
+// -------------------- 初始化 --------------------
+document.addEventListener('DOMContentLoaded', () => {
+    initBalls('ssq-red-balls', 33, 'red');
+    initBalls('ssq-blue-balls', 16, 'blue');
+    initBalls('dlt-red-balls', 35, 'red');
+    initBalls('dlt-blue-balls', 12, 'blue');
+    setDefaultSelection();
+    setupTabs();
+    setupPathSelectors();
+    setupButtonEvents();
+});
+
+// -------------------- 全局状态 --------------------
+let dirHandleSSQ = null;
+let dirHandleDLT = null;
+const timers = { ssq: null, dlt: null };
+const lastPick = { ssq: { red: [], blue: [] }, dlt: { red: [], blue: [] } };
+
+// -------------------- UI --------------------
+function initBalls(containerId, count, type){
+    const container = document.getElementById(containerId);
+    container.innerHTML = '';
+    for(let i=1;i<=count;i++){
+        const el = document.createElement('div');
+        el.className = `ball ${type}-ball`;
+        el.textContent = i;
+        el.dataset.number = i;
+        el.addEventListener('click', function(){
+            this.classList.toggle('selected');
+            updateSelectedNumbers();
+        });
+        container.appendChild(el);
+    }
+}
+
+function setDefaultSelection(){
+    selectBalls('ssq-red-balls', [2,8,13,16,21,23]);
+    selectBalls('ssq-blue-balls', [12]);
+    selectBalls('dlt-red-balls', [3,11,13,22,31]);
+    selectBalls('dlt-blue-balls', [2,8]);
+}
+
+function selectBalls(containerId, numbers){
+    const container = document.getElementById(containerId);
+    const balls = container.querySelectorAll('.ball');
+    balls.forEach(b=>{
+        const n = +b.dataset.number;
+        if(numbers.includes(n)) b.classList.add('selected');
+    });
+    updateSelectedNumbers();
+}
+
+function resetSelection(containerId){
+    const container = document.getElementById(containerId);
+    container.querySelectorAll('.ball.selected').forEach(b=>b.classList.remove('selected'));
+}
+
+function updateSelectedNumbers(){
+    const ssqR = getSelected('#ssq-red-balls');
+    const ssqB = getSelected('#ssq-blue-balls');
+    document.getElementById('ssq-selected').innerHTML =
+        `选中的号码：${ssqR.map(n=>`<span class="red-number">${n}</span>`).join(' ')} <span class="separator">→</span> ${ssqB.map(n=>`<span class="blue-number">${n}</span>`).join(' ')}`;
+
+    const dltR = getSelected('#dlt-red-balls');
+    const dltB = getSelected('#dlt-blue-balls');
+    document.getElementById('dlt-selected').innerHTML =
+        `选中的号码：${dltR.map(n=>`<span class="red-number">${n}</span>`).join(' ')} ${dltB.map(n=>`<span class="blue-number">${n}</span>`).join(' ')}`;
+
+    lastPick.ssq = { red: ssqR, blue: ssqB };
+    lastPick.dlt = { red: dltR,  blue: dltB  };
+}
+
+function getSelected(selector){
+    return Array.from(document.querySelectorAll(`${selector} .ball.selected`))
+      .map(b=>+b.dataset.number).sort((a,b)=>a-b);
+}
+
+// -------------------- 随机选号 --------------------
+function randomPick(count, max){
+    const set = new Set();
+    while(set.size < count) set.add(Math.floor(Math.random()*max)+1);
+    return [...set].sort((a,b)=>a-b);
+}
+
+function applyPick(prefix, redNums, blueNums){
+    resetSelection(`${prefix}-red-balls`);
+    resetSelection(`${prefix}-blue-balls`);
+
+    const redEls = document.getElementById(`${prefix}-red-balls`).querySelectorAll('.ball');
+    redNums.forEach(n=>redEls[n-1]?.classList.add('selected'));
+    const blueEls = document.getElementById(`${prefix}-blue-balls`).querySelectorAll('.ball');
+    blueNums.forEach(n=>blueEls[n-1]?.classList.add('selected'));
+
+    updateSelectedNumbers();
+}
+
+function startRolling(prefix){
+    stopRolling(prefix);
+    const cfg = prefix==='ssq' ? {rMax:33, rCount:6, bMax:16, bCount:1} : {rMax:35, rCount:5, bMax:12, bCount:2};
+    timers[prefix] = setInterval(()=>{
+        const r = randomPick(cfg.rCount, cfg.rMax);
+        const b = randomPick(cfg.bCount, cfg.bMax);
+        applyPick(prefix, r, b);
+    },120);
+}
+
+function stopRolling(prefix){
+    if(timers[prefix]) { clearInterval(timers[prefix]); timers[prefix]=null; }
+}
+
+// -------------------- 选项卡 --------------------
+function setupTabs(){
+    document.querySelectorAll('.tab').forEach(tab=>{
+        tab.addEventListener('click', function(){
+            document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+            document.querySelectorAll('.lottery-content').forEach(c=>c.classList.remove('active'));
+            this.classList.add('active');
+            document.getElementById(`${this.dataset.target}-content`).classList.add('active');
+        });
+    });
+}
+
+// -------------------- 路径选择 --------------------
+function setupPathSelectors(){
+    document.getElementById('ssq-select-path').addEventListener('click', async ()=>{
+        const handle = await pickDirectory();
+        if(handle){ dirHandleSSQ = handle; document.getElementById('ssq-path-display').textContent = handle.name; }
+    });
+    document.getElementById('dlt-select-path').addEventListener('click', async ()=>{
+        const handle = await pickDirectory();
+        if(handle){ dirHandleDLT = handle; document.getElementById('dlt-path-display').textContent = handle.name; }
+    });
+}
+
+async function pickDirectory(){
+    if('showDirectoryPicker' in window){
+        try{
+            const dir = await window.showDirectoryPicker();
+            const ok = await requestRW(dir);
+            return ok ? dir : null;
+        }catch(e){ console.warn(e); return null; }
+    }else{ alert('当前浏览器不支持目录选择，将使用浏览器下载方式保存。'); return null; }
+}
+async function requestRW(handle){
+    if(!handle || !handle.requestPermission) return true;
+    const opts = { mode:'readwrite' };
+    const cur = await handle.queryPermission?.(opts);
+    if(cur === 'granted') return true;
+    const res = await handle.requestPermission?.(opts);
+    return res === 'granted';
+}
+
+// -------------------- 按钮事件 --------------------
+function setupButtonEvents(){
+    document.getElementById('ssq-generate').addEventListener('click', ()=>startRolling('ssq'));
+    document.getElementById('ssq-stop').addEventListener('click', ()=>stopRolling('ssq'));
+    document.getElementById('dlt-generate').addEventListener('click', ()=>startRolling('dlt'));
+    document.getElementById('dlt-stop').addEventListener('click', ()=>stopRolling('dlt'));
+    document.getElementById('ssq-download').addEventListener('click', async ()=>{
+        const n = +document.getElementById('ssq-count').value || 1;
+        await saveScreenshots('ssq','双色球', n, dirHandleSSQ);
+    });
+    document.getElementById('dlt-download').addEventListener('click', async ()=>{
+        const n = +document.getElementById('dlt-count').value || 1;
+        await saveScreenshots('dlt','大乐透', n, dirHandleDLT);
+    });
+}
+
+// -------------------- 截图保存 --------------------
+async function saveScreenshots(prefix,label,count,dirHandle){
+    const useFS = !!dirHandle && 'showDirectoryPicker' in window;
+    stopRolling(prefix);
+
+    const section = document.getElementById(`${prefix}-content`);
+    const selectedDiv = section.querySelector(`#${prefix}-selected`);
+
+    // 临时添加类以隐藏控制按钮
+    section.classList.add('hide-controls');
+
+    try {
+        for(let i=1;i<=count;i++){
+            const cfg = prefix==='ssq' ? {rMax:33,rCount:6,bMax:16,bCount:1} : {rMax:35,rCount:5,bMax:12,bCount:2};
+            const r = randomPick(cfg.rCount, cfg.rMax);
+            const b = randomPick(cfg.bCount, cfg.bMax);
+            applyPick(prefix, r, b);
+            await sleep(50);
+
+            const rectSection = section.getBoundingClientRect();
+            const rectSelected = selectedDiv.getBoundingClientRect();
+
+            const top = rectSection.top + window.scrollY;
+            const left = rectSection.left + window.scrollX;
+            const width = rectSection.width;
+            const height = rectSelected.bottom - rectSection.top;
+
+            const canvas = await html2canvas(section, {
+                backgroundColor:'#ffffff', scale:2, useCORS:true,
+                scrollX: -window.scrollX, scrollY: -window.scrollY,
+                windowWidth: document.documentElement.scrollWidth,
+                windowHeight: document.documentElement.scrollHeight
+            });
+
+            const croppedCanvas = document.createElement('canvas');
+            croppedCanvas.width = width*2;
+            croppedCanvas.height = height*2;
+            const ctx = croppedCanvas.getContext('2d');
+            ctx.drawImage(canvas,0,0,width*2,height*2,0,0,width*2,height*2);
+
+            const blob = await new Promise(res=>croppedCanvas.toBlob(res,'image/png',1));
+            const stamp = new Date().toISOString().replace(/[-:TZ]/g,'').slice(0,14);
+            const name = buildFileName(prefix,r,b,stamp,i);
+
+            if(useFS){ await saveBlobToDir(dirHandle,blob,name); }else{ downloadBlob(blob,name); }
+        }
+    } finally {
+        // 无论成功或失败都移除隐藏类
+        section.classList.remove('hide-controls');
+    }
+}
+
+function buildFileName(prefix, reds, blues, stamp, index){
+    const rn = reds.map(n=>String(n).padStart(2,'0')).join('-');
+    const bn = blues.map(n=>String(n).padStart(2,'0')).join('-');
+    const tag = prefix==='ssq' ? 'SSQ' : 'DLT';
+    return `${tag}_${stamp}_${rn}__${bn}_${String(index).padStart(2,'0')}.png`;
+}
+
+async function saveBlobToDir(dirHandle, blob, fileName){
+    const fileHandle = await dirHandle.getFileHandle(fileName,{create:true});
+    const writable = await fileHandle.createWritable();
+    await writable.write(blob);
+    await writable.close();
+}
+
+function downloadBlob(blob,fileName){
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a'); a.href=url; a.download=fileName;
+    document.body.appendChild(a); a.click(); setTimeout(()=>{ URL.revokeObjectURL(url); a.remove(); },0);
+}
+
+function sleep(ms){ return new Promise(r=>setTimeout(r,ms)); }
+</script>
+</body>
+</html>

@@ -1,0 +1,69 @@
+﻿生成启动时间为 2015/3/25 23:22:36。
+     1>项目“E:\VCstudy\five\Five\Five.vcxproj”在节点 2 上(rebuild 个目标)。
+     1>_PrepareForClean:
+         正在删除文件“.\Debug\Five.lastbuildstate”。
+       InitializeBuildStatus:
+         正在创建“.\Debug\Five.unsuccessfulbuild”，因为已指定“AlwaysCreate”。
+       ClCompile:
+         E:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _VC80_UPGRADE=0x0600 /D _MBCS /D _AFXDLL /Gm /EHsc /RTC1 /MDd /GS /Gy- /fp:precise /Zc:wchar_t /Zc:forScope /Yc"stdafx.h" /Fp".\Debug\Five.pch" /Fo".\Debug\\" /Fd".\Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt StdAfx.cpp
+         StdAfx.cpp
+         _WIN32_WINNT not defined. Defaulting to _WIN32_WINNT_MAXVER (see WinSDKVer.h)
+         E:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _VC80_UPGRADE=0x0600 /D _MBCS /D _AFXDLL /Gm /EHsc /RTC1 /MDd /GS /Gy- /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp".\Debug\Five.pch" /Fo".\Debug\\" /Fd".\Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt AboutDlg.cpp ClientDlg.cpp Five.cpp FiveDlg.cpp FiveSocket.cpp Game.cpp NameDlg.cpp ServerDlg.cpp StatDlg.cpp Table.cpp
+         Table.cpp
+         StatDlg.cpp
+         ServerDlg.cpp
+         NameDlg.cpp
+         Game.cpp
+         FiveSocket.cpp
+         FiveDlg.cpp
+         Five.cpp
+     1>e:\vcstudy\five\five\five.cpp(56): warning C4996: 'CWinApp::Enable3dControls': CWinApp::Enable3dControls is no longer needed. You should remove this call.
+                 e:\program files (x86)\microsoft visual studio 10.0\vc\atlmfc\include\afxwin.h(5344) : 参见“CWinApp::Enable3dControls”的声明
+         ClientDlg.cpp
+         AboutDlg.cpp
+         正在生成代码...
+       ResourceCompile:
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\rc.exe /D _DEBUG /D _VC80_UPGRADE=0x0600 /D _AFXDLL /l"0x0804" /nologo /fo".\Debug\Five.res" Five.rc 
+       ManifestResourceCompile:
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\rc.exe /nologo /fo".\Debug\Five.exe.embed.manifest.res" .\Debug\Five_manifest.rc 
+       Link:
+         E:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:".\Debug\Five.exe" /VERSION:"1.0" /INCREMENTAL /NOLOGO winmm.lib /MANIFEST /ManifestFile:".\Debug\Five.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"E:\VCstudy\five\Five\Debug\Five.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:".\Debug\Five.lib" /MACHINE:X86 .\Debug\Five.res
+         .\Debug\Five.exe.embed.manifest.res
+         .\Debug\AboutDlg.obj
+         .\Debug\ClientDlg.obj
+         .\Debug\Five.obj
+         .\Debug\FiveDlg.obj
+         .\Debug\FiveSocket.obj
+         .\Debug\Game.obj
+         .\Debug\NameDlg.obj
+         .\Debug\ServerDlg.obj
+         .\Debug\StatDlg.obj
+         .\Debug\StdAfx.obj
+         .\Debug\Table.obj
+       Manifest:
+         正在删除文件“.\Debug\Five.exe.embed.manifest”。
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /out:".\Debug\Five.exe.embed.manifest" /manifest .\Debug\Five.exe.intermediate.manifest "E:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\Include\Manifest\dpiaware.manifest"
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\rc.exe /nologo /fo".\Debug\Five.exe.embed.manifest.res" .\Debug\Five_manifest.rc 
+       LinkEmbedManifest:
+         E:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:".\Debug\Five.exe" /VERSION:"1.0" /INCREMENTAL /NOLOGO winmm.lib /MANIFEST /ManifestFile:".\Debug\Five.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"E:\VCstudy\five\Five\Debug\Five.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:".\Debug\Five.lib" /MACHINE:X86 .\Debug\Five.res
+         .\Debug\Five.exe.embed.manifest.res
+         .\Debug\AboutDlg.obj
+         .\Debug\ClientDlg.obj
+         .\Debug\Five.obj
+         .\Debug\FiveDlg.obj
+         .\Debug\FiveSocket.obj
+         .\Debug\Game.obj
+         .\Debug\NameDlg.obj
+         .\Debug\ServerDlg.obj
+         .\Debug\StatDlg.obj
+         .\Debug\StdAfx.obj
+         .\Debug\Table.obj
+         Five.vcxproj -> E:\VCstudy\five\Five\.\Debug\Five.exe
+       FinalizeBuildStatus:
+         正在删除文件“.\Debug\Five.unsuccessfulbuild”。
+         正在对“.\Debug\Five.lastbuildstate”执行 Touch 任务。
+     1>已完成生成项目“E:\VCstudy\five\Five\Five.vcxproj”(rebuild 个目标)的操作。
+
+生成成功。
+
+已用时间 00:00:05.08

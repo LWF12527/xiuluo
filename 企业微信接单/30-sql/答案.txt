@@ -1,0 +1,27 @@
+WITH RECURSIVE date_series AS (
+    SELECT 
+        cardNumber,
+        MIN(DATE(startTime)) as min_date,
+        1 as n
+    FROM test_table
+    GROUP BY cardNumber
+    UNION ALL
+    SELECT 
+        ds.cardNumber,
+        DATE_ADD(ds.min_date, INTERVAL 1 DAY),
+        ds.n + 1
+    FROM date_series ds
+    WHERE ds.n < 4
+),
+filtered_dates AS (
+    SELECT DISTINCT
+        t.cardNumber,
+        ds.min_date as the_date
+    FROM date_series ds
+    LEFT JOIN test_table t ON t.cardNumber = ds.cardNumber AND DATE(t.startTime) = ds.min_date
+)
+SELECT 
+    t.*
+FROM test_table t
+LEFT JOIN filtered_dates fd ON t.cardNumber = fd.cardNumber AND DATE(t.startTime) = fd.the_date
+ORDER BY t.cardNumber, t.startTime;

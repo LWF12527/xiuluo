@@ -1,0 +1,35 @@
+# 如果CLASS_NUMBER大于1
+# if (CLASS_NUMBER > 1):
+# 定义一个类class_lable_t
+class class_lable_t:
+        # 初始化函数
+        def __init__(self, str, color, height, vidth, ptr):
+                self.str = str      # 类别名称
+                self.color = color  # 类别的颜色
+                self.height = height    # 类别的高度
+                self.vidth = vidth      # 类别的宽度
+                self.ptr = ptr      # 类别的指针
+
+# 定义一个列表class_lable，其中包含所有类别的信息
+class_lable = [
+        class_lable_t("aeroplane", NAUY),        # 飞机
+        class_lable_t("bicycle", DARKGREEN),     # 自行车
+        class_lable_t("bird", DARKCYAN),         # 鸟
+        class_lable_t("boat", MAROON),           # 船
+        class_lable_t("bottle", PURPLE),         # 瓶子
+        class_lable_t("bus", LIGHTGREY),         # 公交车
+        class_lable_t("car", DARKGREY),          # 汽车
+        class_lable_t("cat", BLUE),              # 猫
+        class_lable_t("chair", RED),             # 椅子
+        class_lable_t("cow", GREEN),             # 牛
+        class_lable_t("diningtable", WHITE),     # 餐桌
+        class_lable_t("dog", RED),               # 狗
+        class_lable_t("horse", MAGENTA),         # 马
+        class_lable_t("notorbike", YELLOW),      # 摩托车
+        class_lable_t("person", CYAN),           # 人
+        class_lable_t("pottedplant", ORANGE),    # 盆栽
+        class_lable_t("sheep", GREENYELLOW),     # 羊
+        class_lable_t("sofa", PINK),             # 沙发
+        class_lable_t("train'", USER_COLOR),     # 火车
+        class_lable_t("tunonitor*", NAUY)        # 电视
+        ]

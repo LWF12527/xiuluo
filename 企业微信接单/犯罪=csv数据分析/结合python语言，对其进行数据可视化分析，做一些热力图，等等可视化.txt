@@ -1,0 +1,19 @@
+结合python语言，对其进行数据可视化分析，做一些热力图，等等可视化图表，以及犯罪和种族关系的相关性分析
+
+Record ID	Agency Code	Agency Name	Agency Type	City	State	Year	Month	Incident	Crime Type	Crime Solved	Victim Sex	Victim Age	Victim Race	Victim Ethnicity	Perpetrator Sex	Perpetrator Age	Perpetrator Race	Perpetrator Ethnicity	Relationship	Weapon	Victim Count	Perpetrator Count	Record Source
+1	AK00101	Anchorage	Municipal Police	Anchorage	Alaska	1980	January	1	Murder or Manslaughter	Yes	Male	14	Native American/Alaska Native	Unknown	Male	15	Native American/Alaska Native	Unknown	Acquaintance	Blunt Object	0	0	FBI
+2	AK00101	Anchorage	Municipal Police	Anchorage	Alaska	1980	March	1	Murder or Manslaughter	Yes	Male	43	White	Unknown	Male	42	White	Unknown	Acquaintance	Strangulation	0	0	FBI
+3	AK00101	Anchorage	Municipal Police	Anchorage	Alaska	1980	March	2	Murder or Manslaughter	No	Female	30	Native American/Alaska Native	Unknown	Unknown	0	Unknown	Unknown	Unknown	Unknown	0	0	FBI
+4	AK00101	Anchorage	Municipal Police	Anchorage	Alaska	1980	April	1	Murder or Manslaughter	Yes	Male	43	White	Unknown	Male	42	White	Unknown	Acquaintance	Strangulation	0	0	FBI
+5	AK00101	Anchorage	Municipal Police	Anchorage	Alaska	1980	April	2	Murder or Manslaughter	No	Female	30	Native American/Alaska Native	Unknown	Unknown	0	Unknown	Unknown	Unknown	Unknown	0	1	FBI
+83	AL00102	Birmingham	Municipal Police	Jefferson	Alabama	1980	January	10	Murder or Manslaughter	Yes	Male	38	Black	Unknown	Male	45	Black	Unknown	Acquaintance	Handgun	0	0	FBI
+84	AL00102	Birmingham	Municipal Police	Jefferson	Alabama	1980	January	11	Murder or Manslaughter	Yes	Male	51	Black	Unknown	Male	22	Black	Unknown	Acquaintance	Knife	0	0	FBI
+85	AL00102	Birmingham	Municipal Police	Jefferson	Alabama	1980	February	1	Murder or Manslaughter	Yes	Male	24	Black	Unknown	Male	30	Black	Unknown	Acquaintance	Handgun	0	0	FBI
+71307	ILCPD00	Chicago	Municipal Police	Cook	Illinois	1983	January	29	Murder or Manslaughter	Yes	Male	21	Black	Not Hispanic	Male	24	Black	Not Hispanic	Girlfriend	Knife	1	0	FBI
+71308	ILCPD00	Chicago	Municipal Police	Cook	Illinois	1983	January	41	Murder or Manslaughter	Yes	Male	45	Black	Not Hispanic	Male	45	Black	Not Hispanic	Acquaintance	Handgun	1	0	FBI
+71309	ILCPD00	Chicago	Municipal Police	Cook	Illinois	1983	February	3	Murder or Manslaughter	Yes	Female	33	Asian/Pacific Islander	Not Hispanic	Male	25	Black	Not Hispanic	Stranger	Fire	1	0	FBI
+71310	ILCPD00	Chicago	Municipal Police	Cook	Illinois	1983	February	12	Murder or Manslaughter	Yes	Male	44	White	Not Hispanic	Male	19	Black	Not Hispanic	Stranger	Handgun	1	1	FBI
+95442	NY02701	Rochester	Municipal Police	Monroe	New York	1984	March	1	Murder or Manslaughter	Yes	Male	21	Black	Not Hispanic	Male	0	Black	Not Hispanic	Stranger	Blunt Object	0	0	FBI
+95443	NY02701	Rochester	Municipal Police	Monroe	New York	1984	March	2	Murder or Manslaughter	Yes	Male	22	Black	Not Hispanic	Male	0	Black	Not Hispanic	Stranger	Handgun	0	0	FBI
+95444	NY02701	Rochester	Municipal Police	Monroe	New York	1984	March	3	Murder or Manslaughter	Yes	Male	17	Black	Not Hispanic	Male	16	Asian/Pacific Islander	Hispanic	Acquaintance	Handgun	0	0	FBI
+95445	NY02701	Rochester	Municipal Police	Monroe	New York	1984	March	4	Murder or Manslaughter	Yes	Female	14	White	Not Hispanic	Male	18	White	Not Hispanic	Acquaintance	Knife	0	0	FBI

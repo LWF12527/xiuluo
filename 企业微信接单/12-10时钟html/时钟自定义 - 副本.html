@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Enhanced Customizable Clock</title>
+<style>
+	#div1 {
+		position: relative;
+		width: 400px;
+		height: 400px;
+		border: 1px solid #000;
+		margin: 100px auto;
+		border-radius: 50%;
+	}
+	#div1 .hour {
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		margin-left: -5px;
+		margin-top: -90px;
+		width: 10px;
+		height: 90px;
+		background: #000;
+		transform-origin: center bottom; 
+	}
+	#div1 .min {
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		margin-left: -3px;
+		margin-top: -120px;
+		width: 6px;
+		height: 120px;
+		background: #000;
+		transform-origin: center bottom; 		
+	}
+	#div1 .sec {
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		margin-left: -1px;
+		margin-top: -150px;
+		width: 2px;
+		height: 150px;
+		background: red;
+		transform-origin: center bottom; 		
+	}
+	#div1 .cap {
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		margin-left: -10px;
+		margin-top: -10px;
+		width: 20px;
+		height: 20px;
+		border-radius: 50%;
+		background: #000;
+	}
+	#div1 span {
+		position: absolute;
+		left: 50%;
+		top: 0;
+		margin-left: -2px;
+		width: 2px;
+		height: 10px;
+		background: #000;
+		transform-origin: center 200px; 
+	}
+	#div1 span em {
+		position: absolute;
+		left: 50%;
+		top: 16px;
+		margin-left: -10px;
+		width: 20px;
+		text-align: center;
+		font-style: normal;
+		font-size: 12px;
+	}
+	#div1 span.on {
+		height: 16px;
+		background: red;
+	}
+</style>
+</head>
+<body>
+	<div id="div1">
+		<div class="hour"></div>
+		<div class="min"></div>
+		<div class="sec"></div>
+		<div class="cap"></div>
+	</div>
+	<div style="text-align: center; margin-top: 20px;">
+		<label>Hour: <input type="number" id="hourInput" min="0" max="36" /></label>
+		<label>Minute: <input type="number" id="minuteInput" min="0" max="59" /></label>
+		<label>Second: <input type="number" id="secondInput" min="0" max="59" /></label>
+		<button id="setTimeBtn">Set Time</button>
+		<br><br>
+		<label>Max Hour: <input type="number" id="maxHourInput" min="1" /></label>
+		<label>Max Minute: <input type="number" id="maxMinuteInput" min="1" /></label>
+		<label>Max Second: <input type="number" id="maxSecondInput" min="1" /></label>
+		<button id="setFormatBtn">Set Format</button>
+	</div>
+<script>
+	window.onload = function () {
+		var oDiv = document.getElementById('div1');
+		var oH = oDiv.querySelector('.hour');
+		var oM = oDiv.querySelector('.min');
+		var oS = oDiv.querySelector('.sec');
+		var maxHours = 24, maxMinutes = 60, maxSeconds = 60; // Default format
+		var isPaused = false;
+		var currentTime = new Date();
+
+		// Initialize clock markers
+		function createMarkers() {
+    oDiv.querySelectorAll('span').forEach(span => span.remove());
+
+    // 最外圈：小时刻度
+    for (var i = 0; i < maxHours; i++) {
+        var hourSpan = document.createElement('span');
+        oDiv.appendChild(hourSpan);
+
+        if (i % (maxHours / 12) === 0) { // 每隔1小时显示主要刻度
+            hourSpan.classList.add("on");
+            hourSpan.innerHTML = "<em>" + i + "</em>";
+            hourSpan.children[0].style.transform = "rotate(" + -i * (360 / maxHours) + "deg)";
+        }
+        hourSpan.style.transform = "rotate(" + i * (360 / maxHours) + "deg)";
+        hourSpan.style.top = "0"; // 保持中心
+        hourSpan.style.transformOrigin = "center 200px"; // 正确定位为外圈
+    }
+
+    // 内圈：分钟刻度
+    for (var i = 0; i < maxMinutes; i++) {
+        var minuteSpan = document.createElement('span');
+        oDiv.appendChild(minuteSpan);
+
+        if (i % 5 === 0) { // 每5分钟显示一个刻度
+            minuteSpan.classList.add("on");
+            minuteSpan.innerHTML = "<em>" + i + "</em>";
+            minuteSpan.children[0].style.transform = "rotate(" + -i * (360 / maxMinutes) + "deg)";
+        }
+        minuteSpan.style.transform = "rotate(" + i * (360 / maxMinutes) + "deg)";
+        minuteSpan.style.top = "60px"; // 调整为相对内圈偏移
+        minuteSpan.style.transformOrigin = "center 140px"; // 设置内圈正确位置
+    }
+}
+
+		// Update clock hands
+		function updateClock(hours, minutes, seconds) {
+			var hourDeg = (hours % maxHours) * (360 / maxHours) + (minutes / maxMinutes) * (360 / maxHours);
+			var minuteDeg = (minutes % maxMinutes) * (360 / maxMinutes) + (seconds / maxSeconds) * (360 / maxMinutes);
+			var secondDeg = (seconds % maxSeconds) * (360 / maxSeconds);
+
+			oH.style.transform = `rotate(${hourDeg}deg)`;
+			oM.style.transform = `rotate(${minuteDeg}deg)`;
+			oS.style.transform = `rotate(${secondDeg}deg)`;
+		}
+
+		// Clock ticking function
+		function tick() {
+			if (!isPaused) {
+				currentTime.setSeconds(currentTime.getSeconds() + 1);
+				updateClock(currentTime.getHours(), currentTime.getMinutes(), currentTime.getSeconds());
+			}
+		}
+
+		// Initialize clock
+		createMarkers();
+		setInterval(tick, 1000);
+
+		// Set Time Button
+		document.getElementById('setTimeBtn').addEventListener('click', function () {
+			var hour = parseInt(document.getElementById('hourInput').value || 0);
+			var minute = parseInt(document.getElementById('minuteInput').value || 0);
+			var second = parseInt(document.getElementById('secondInput').value || 0);
+
+			hour = hour % maxHours;
+			minute = minute % maxMinutes;
+			second = second % maxSeconds;
+
+			currentTime.setHours(hour);
+			currentTime.setMinutes(minute);
+			currentTime.setSeconds(second);
+
+			updateClock(hour, minute, second);
+		});
+
+		// Set Format Button
+		document.getElementById('setFormatBtn').addEventListener('click', function () {
+			var newMaxHours = parseInt(document.getElementById('maxHourInput').value || maxHours);
+			var newMaxMinutes = parseInt(document.getElementById('maxMinuteInput').value || maxMinutes);
+			var newMaxSeconds = parseInt(document.getElementById('maxSecondInput').value || maxSeconds);
+
+			if (newMaxHours > 0 && newMaxMinutes > 0 && newMaxSeconds > 0) {
+				maxHours = newMaxHours;
+				maxMinutes = newMaxMinutes;
+				maxSeconds = newMaxSeconds;
+
+				createMarkers(); // Recreate markers based on new format
+				updateClock(0, 0, 0); // Reset clock
+			} else {
+				alert("Invalid format. All values must be greater than 0.");
+			}
+		});
+	};
+</script>
+</body>
+</html>

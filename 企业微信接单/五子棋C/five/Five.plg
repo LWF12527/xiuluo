@@ -1,0 +1,72 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: Five - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating command line "rc.exe /l 0x804 /fo"Debug/Five.res" /d "_DEBUG" /d "_AFXDLL" "H:\编程\vc\VC6\其他分类\five\Five\Five.rc"" 
+Creating temporary file "C:\Users\ADMINI~1\AppData\Local\Temp\RSP94D7.tmp" with contents
+[
+/nologo /MDd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /Fp"Debug/Five.pch" /Yu"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"H:\编程\vc\VC6\其他分类\five\Five\AboutDlg.cpp"
+"H:\编程\vc\VC6\其他分类\five\Five\ClientDlg.cpp"
+"H:\编程\vc\VC6\其他分类\five\Five\Five.cpp"
+"H:\编程\vc\VC6\其他分类\five\Five\FiveDlg.cpp"
+"H:\编程\vc\VC6\其他分类\five\Five\FiveSocket.cpp"
+"H:\编程\vc\VC6\其他分类\five\Five\Game.cpp"
+"H:\编程\vc\VC6\其他分类\five\Five\NameDlg.cpp"
+"H:\编程\vc\VC6\其他分类\five\Five\ServerDlg.cpp"
+"H:\编程\vc\VC6\其他分类\five\Five\StatDlg.cpp"
+"H:\编程\vc\VC6\其他分类\five\Five\Table.cpp"
+]
+Creating command line "cl.exe @C:\Users\ADMINI~1\AppData\Local\Temp\RSP94D7.tmp" 
+Creating temporary file "C:\Users\ADMINI~1\AppData\Local\Temp\RSP94D8.tmp" with contents
+[
+/nologo /MDd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /Fp"Debug/Five.pch" /Yc"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"H:\编程\vc\VC6\其他分类\five\Five\StdAfx.cpp"
+]
+Creating command line "cl.exe @C:\Users\ADMINI~1\AppData\Local\Temp\RSP94D8.tmp" 
+Creating temporary file "C:\Users\ADMINI~1\AppData\Local\Temp\RSP94D9.tmp" with contents
+[
+winmm.lib /nologo /version:1.0 /subsystem:windows /incremental:yes /pdb:"Debug/Five.pdb" /debug /machine:I386 /out:"Debug/Five.exe" /pdbtype:sept 
+".\Debug\AboutDlg.obj"
+".\Debug\ClientDlg.obj"
+".\Debug\Five.obj"
+".\Debug\FiveDlg.obj"
+".\Debug\FiveSocket.obj"
+".\Debug\Game.obj"
+".\Debug\NameDlg.obj"
+".\Debug\ServerDlg.obj"
+".\Debug\StatDlg.obj"
+".\Debug\StdAfx.obj"
+".\Debug\Table.obj"
+".\Debug\Five.res"
+]
+Creating command line "link.exe @C:\Users\ADMINI~1\AppData\Local\Temp\RSP94D9.tmp"
+<h3>Output Window</h3>
+Compiling resources...
+Compiling...
+StdAfx.cpp
+Compiling...
+AboutDlg.cpp
+ClientDlg.cpp
+Five.cpp
+FiveDlg.cpp
+FiveSocket.cpp
+Game.cpp
+NameDlg.cpp
+ServerDlg.cpp
+StatDlg.cpp
+Table.cpp
+Generating Code...
+Linking...
+
+
+
+<h3>Results</h3>
+Five.exe - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>

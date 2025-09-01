@@ -1,0 +1,91 @@
+CREATE TABLE students (
+  id               	INT PRIMARY KEY,
+  first_name	VARCHAR(20),
+  last_name	VARCHAR(20),
+  major 		VARCHAR(30),
+  current_credits	INT
+  );
+
+CREATE TABLE major_stats (
+  major		VARCHAR(30),
+  total_credits	INT,
+  total_students	INT);
+
+CREATE TABLE rooms (
+  room_id		INT PRIMARY KEY,
+  building		VARCHAR(15),
+  room_number	INT,
+  number_seats	INT,
+  description	VARCHAR(50)
+  );
+
+CREATE TABLE classes (
+  department	CHAR(3),
+  course		INT,
+  description	VARCHAR(2000),
+  max_students	INT,
+  current_students	INT,
+  num_credits	INT,
+  room_id		INT,
+  CONSTRAINT classes_department_course  PRIMARY KEY (department, course),
+  CONSTRAINT classes_room_id   FOREIGN KEY (room_id) REFERENCES rooms (room_id)
+  );
+
+CREATE TABLE registered_students (
+  student_id		INT NOT NULL,
+  department		CHAR(3)   NOT NULL,
+  course			INT NOT NULL,
+  grade			CHAR(1),
+  CONSTRAINT rs_grade    CHECK (grade IN ('A', 'B', 'C', 'D', 'E')),
+  CONSTRAINT rs_student_id    FOREIGN KEY (student_id) REFERENCES students (id),
+  CONSTRAINT rs_department_course    FOREIGN KEY (department, course)    REFERENCES classes (department, course)
+  );
+
+CREATE TABLE RS_audit (
+  change_type		CHAR(1)     NOT NULL,
+  changed_by		VARCHAR(8) NOT NULL,
+  timestamp		DATETIME        NOT NULL,
+  old_student_id		INT,
+  old_department		CHAR(3),
+  old_course		INT,
+  old_grade		CHAR(1),
+  new_student_id		INT,
+  new_department		CHAR(3),
+  new_course		INT,
+  new_grade		CHAR(1)
+  );
+
+CREATE TABLE log_table (
+  code		INT,
+  message	VARCHAR(200),
+  info		VARCHAR(100)
+  );
+
+
+CREATE TABLE temp_table (
+  num_col		INT,
+  char_col		VARCHAR(60)
+  );
+
+
+CREATE TABLE books (
+  catalog_number INT	PRIMARY KEY,
+  title			VARCHAR(40),
+  author1			VARCHAR(40),
+  author2			VARCHAR(40),
+  author3			VARCHAR(40),
+  author4			VARCHAR(40)
+);
+
+
+CREATE TABLE class_material (
+  department		CHAR(3),
+  course			INT
+);
+
+
+CREATE TABLE library_catalog (
+  catalog_number		INT,  FOREIGN KEY (catalog_number) REFERENCES books(catalog_number),
+  num_copies		INT,
+  num_out		INT
+);

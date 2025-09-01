@@ -1,0 +1,41 @@
+1、给出设计这个人事管理系统的实体的关系模式，描述那个是主键外键，说明实体之间的一对多，多对多的关系
+
+2、给出满足上述要求的完整的mysql代码
+
+
+例如：
+7、班费管理系统
+	班级信息管理：增加、修改等
+	班级管理员信息管理：增加、修改等
+	班级成员的管理：注册并审核或者信息直接导入
+	班费收入、支出明细记录
+	班费收支情况查询与统计
+
+
+给出1.	应用背景300字
+2.需求分析
+3.功能分析
+4.关系模式（标明主外键)
+5.创建mysql数据库，表及其约束的sql语句，
+6.将数据字典按照excel表格列出
+
+画er图
+1	商品类别表(Category)：
+a)	主键：类别ID(CategoryID)
+b)	属性：类别名称(CategoryName)
+2	供应商表(Supplier)：
+a)	主键：供应商ID(SupplierID)
+b)	属性：供应商名称(SupplierName)
+3	用户表(User)：
+a)	主键：用户ID(UserID)
+b)	属性：用户名(Username)
+4	商品表(Product)：
+a)	主键：商品ID(ProductID)
+b)	外键：类别ID(CategoryID)
+c)	外键：供应商ID(SupplierID)
+d)	属性：商品名称(ProductName)
+e)	属性：进货价格(PurchasePrice)
+f)	属性：销售价格(SellingPrice)
+
+
+根据关系模式：指出实体间一对多，多对多的关系

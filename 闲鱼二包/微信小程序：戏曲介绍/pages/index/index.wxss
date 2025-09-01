@@ -1,0 +1,44 @@
+/**index.wxss**/
+.container{
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+.bgimg{
+  position: absolute;
+  width: 160%;
+  height: 1200rpx;
+}
+
+.text{
+  position: absolute;
+  z-index: 1;
+  width:100%;
+}
+
+.markone{
+  margin-top:100rpx;
+  margin-left:60%;
+}
+
+.marktwo{
+  margin-top:95%;
+  margin-left:20%;
+}
+
+.markthree{
+  margin-left:45%;
+}
+
+.markfour{
+  margin-top:-350rpx;
+  margin-left:70%;
+}
+
+.markimg{
+  width:60rpx;
+  height:60rpx;
+}

@@ -1,0 +1,50 @@
+
+
+#include <stdio.h>
+#include <math.h>
+
+int main() 
+{
+    double H1 =0.8;                 //浇包高度
+    double D1 =0.65;                //浇包顶部直径
+    double D2 =0.5;                 //浇包底部直径
+    double d =0.01;                 //出液口直径
+    double g =9.81;                 //定义重力加速度
+    double h =0.6;                  //液面高度
+    double dt =0.1;                 //时间步长
+
+    double t =0;                    //定义变量并赋初值，分别为液面高度，积，时间，以及出液速度
+    double Aa =3.14*(d*d) / 4;      //出液口面积计算
+
+    double u = 0, dA, dv, dh =0;        //定义变量，出液口速度，该高度下液面直径、面积，流出质量的差分，高度变化
+    double dD = ((D1 - D2) / H1) * h + D2; //当前液面高度下的截面直径
+
+    double x1 = 0, y1 = 0;
+    double x2 = D1 * 200, y2 = 0;
+    double x3 = (D1 + D2) * 200 / 2, y3 = H1 * 200;
+    double x4 = (D1 - D2) * 200 / 2, y4 = H1 * 200;
+    FILE *f=fopen("D:\\testingfile\\data.txt", "w");
+    if(f==NULL){
+        printf("Failed to open file.");
+        return -1;
+    }
+    double y5, x5, y6, x6;
+
+    while (h > 0) {                     //当液面高度高于底面时，继续模拟
+
+        y5 = (H1 - h) * 200, x5 = ((D1 - D2) / H1) * y5;
+        y6 = y5, x6 = x5 + dD; 
+        u = sqrt(2 * g * h);            //根据伯努利方程计算出理想状态下液口液流速度
+        dD = ((D1 - D2) / H1) * h + D2; //根据h算出当前液面的直径
+        dA = 3.14 * (dD * dD) / 4;      //根据直径算出面积
+        dv = u * Aa * dt;               //体积变化的差分
+        dh = dv / dA;
+        fprintf(f, "%f,%f,%f\n", u, h, t);
+
+        h += (-dh);                     //更新液面高度
+        t += dt;                        //更新时间
+
+    }
+    fclose(f);
+    return 0;
+}

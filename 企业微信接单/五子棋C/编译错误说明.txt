@@ -1,0 +1,19 @@
+warning　LNK4089: all references to "****.dll" discarded by /OPT:REF 
+开发平台：VC 
+出现错误： 
+warning　LNK4089: all references to "USER32.dll" discarded by /OPT:REF。 
+错误原因： 
+由于打开了优化选项，而且程序中包含或加入了USER32.dll,但是却没有调用该库中的任何函数或方法, 所以系统给个通知。 
+解决办法： 
+a）这个问题一般出现在release版中，当release版编译时会对代码进行优化，将程序中实际上并没用到的，而在工程中链接了的库放弃而不编译到工程中去。可在工程设置中的Link中的input中ingore libraries中将该库的lib文件名输入。 
+b）不予理会，因为它不会影响程序。 
+C)如果不想显示这个提示，可以在project->settings->linking->projects options中加上/OPT:NOREF 
+或者 #pragma comment(linker, "/ignore:4089") 取消警告 
+
+
+参看：
+ What does Link warning LNK4089 mean, and how can I avoid it?
+
+ What does Link war This warning simply means that you are linking against a library and the linker has detected that you are not really using any functions from it. This warning usually only pops when you are making release builds, because the /OPT:REF switch of the linker that's set by default on release builds asks the linker to trim your resulting executable as much possible by avoiding linking unnecessary dlls in. (this makes the import address table of your executable much smaller).
+
+ If you don't care about the warning, you can tell the linker to ignore it by adding the /IGNORE:4089 switch to the linker command line from the Project->Settings dialog

@@ -2,5 +2,82 @@
 <project version="4">
   <component name="SqlDialectMappings">
     <file url="file://$PROJECT_DIR$/58租房数据采集/58租房.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/企业微信接单/1-GUI模板--健身房管理系统python+mysql+gui/Gym_management.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/企业微信接单/1-GUI模板--健身房管理系统python+mysql+gui/manger.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/企业微信接单/12-9/12-9-mysql农业数据+分析报告/1.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/企业微信接单/12-9/12-9图书管理100/book.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/企业微信接单/120 纯mysql 客房系统改写/room.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/企业微信接单/120-2份，py+mysql/教师信息管理系统/js.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/企业微信接单/120-2份，py+mysql/门禁管理系统/mj.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/企业微信接单/120纯mysql员工管理系统/yg.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/企业微信接单/130纯mysql很全--网上购物系统/shoping.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/企业微信接单/150python零食数据库+mysql查询/sql.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/企业微信接单/170 scrapy 爬取斗鱼王者荣耀直播/douyu/douyu.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/企业微信接单/2023615python和mysq---l图书+邮局/图书销售管理系统/tushu.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/企业微信接单/2023615python和mysq---l图书+邮局/邮局订阅管理系统/youju.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/企业微信接单/20晚，HOMG--3个作业/3student.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/企业微信接单/24号 160，2份，纯mysql/网上订单管理系统/dingdan.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/企业微信接单/24号 160，2份，纯mysql/酒店用户信息管理系统/room.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/企业微信接单/300python+gui+mysql客房入住信息管理系统/room.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/企业微信接单/400python+tk+python公司考勤管理系统/attendance.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/企业微信接单/50-wuti/room.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/企业微信接单/70-数据库考试/cs_management.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/企业微信接单/70一份数据库报告--7份/订单管理系统1/dingdan.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/企业微信接单/70一份数据库报告/订单管理系统1/dingdan.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/企业微信接单/80-mysql题目/factory_inventory_management.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/企业微信接单/80-公司水费收费管理信息/1.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/企业微信接单/80纯mysql客房管理系统/room.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/企业微信接单/80纯mysql，无题，网上订单管理系统/run.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/企业微信接单/80纯mysql，无题，网上订单管理系统/shoping.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/企业微信接单/ATM/atm.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/企业微信接单/ATM/out/production/ATM/atm.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/企业微信接单/MySQL：学生信息管理系统/1.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/企业微信接单/SQL题目/sql.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/企业微信接单/java+mysql图书销售管理系统/out/production/java+mysql图书销售管理系统/tushu.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/企业微信接单/java+mysql图书销售管理系统/out/production/图书销售管理系统/tushu.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/企业微信接单/java+mysql图书销售管理系统/tushu.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/企业微信接单/myslq——教师信息管理系统/js.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/企业微信接单/mysql-仓库管理系统/store_management.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/企业微信接单/mysql-学生宿舍管理系统/xsgy.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/企业微信接单/mysql作业/BUS.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/企业微信接单/mysql网上招聘系统/zp.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/企业微信接单/python+gui+mysql客房入住信息管理系统/room.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/企业微信接单/python+mysql+gui药房库存管理系统/medicine.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/企业微信接单/python+mysql--学生选课系统/student.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/企业微信接单/python+mysql库存管理系统150/stoke.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/企业微信接单/python+mysql食堂点餐系统/sql.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/企业微信接单/sql server-80/jxc (2).sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/企业微信接单/sql server-学生管理/1.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/企业微信接单/sql server商店进销存系统/jxc (2).sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/企业微信接单/sql server商店进销存系统/jxc.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/企业微信接单/sql server高校教师管理系统/gxjs.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/企业微信接单/sql+er+关系模式/sql.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/企业微信接单/个人理财管理系统/personalfinance.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/企业微信接单/代运行==数据库考试资料-含试卷/code.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/企业微信接单/代运行==数据库考试资料-含试卷/score_db.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/企业微信接单/代运行==数据库考试资料-含试卷/stuinfo_db.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/企业微信接单/学生图书管理系统/studentmanage.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/企业微信接单/学生学籍管理系统/S.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/企业微信接单/学生档案管理系统/1.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/企业微信接单/学生管理python+mysql/xs.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/企业微信接单/宠物管理系统/cw.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/企业微信接单/客车管理系统/che.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/企业微信接单/客车管理系统/out/production/客车管理系统/che.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/企业微信接单/星海商城项目--挺不错的/手机推荐系统/starsea-mall-master/sql/db_mall_starsea.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/企业微信接单/构建数据库：采集数据和清洗/力扣数据采集清洗/examForCS(1).sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/企业微信接单/构建数据库：采集数据和清洗/力扣数据采集清洗/examxx.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/企业微信接单/构建数据库：采集数据和清洗/力扣数据采集清洗/examxx3.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/企业微信接单/构建数据库：采集数据和清洗/力扣数据采集清洗/examxx4.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/企业微信接单/构建数据库：采集数据和清洗/力扣数据采集清洗/examxx5.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/企业微信接单/构建数据库：采集数据和清洗/力扣数据采集清洗/examxx6.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/企业微信接单/毕设：会员积分管理系统/jf/jf.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/企业微信接单/纯mysql+报告，学生管理系统很全/studentmanage.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/企业微信接单/纯mysql大学生创业管理系统/entrepreneurship_management.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/企业微信接单/纯mysql学生成绩系统/studentmanage.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/企业微信接单/纯mysql学生管理系统2/sql.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/企业微信接单/贪吃蛇+登入+mysql/Snack+mysql/snack.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/企业微信接单/高校科研2/1.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/企业微信接单/高校科研管理系统sql server/gxky.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/闲鱼二包/京东商品-mysql，scrapy/jd_store.sql" dialect="MySQL" />
   </component>
 </project>

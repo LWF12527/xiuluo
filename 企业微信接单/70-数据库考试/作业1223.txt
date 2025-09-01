@@ -1,0 +1,156 @@
+SELECT *
+FROM your_table
+WHERE STR_TO_DATE(your_date_column, '%Y-%m-%d') >= DATE_SUB(CURDATE(), INTERVAL 7 DAY);
+
+提交作业截止时间：2024年12月27日下午5点之前结束。
+QQ发消息即可，提交内容如下：
+1：所有表的建表脚本和数据：可以保持为*.sql文件提交。
+2：所有题目的SQL语句以及运行结果：可以截图或者拍照提交。
+     注意：一定要有运行后的结果，
+               SQL运行结果至少一条数据。
+
+题目如下：
+第一题：
+       关于商品（你的可以买的任意东西即可）
+       1：按分类展示商品：类别、图片名称、商品描述、价格
+
+SELECT 
+    c.category_name AS 类别, 
+    p.image_name AS 图片名称, 
+    p.description AS 商品描述, 
+    p.price AS 价格
+FROM 
+    products p
+JOIN 
+    categories c ON p.category_id = c.category_id;
+
+       2：查询一个商品（按商品的唯一标识），展示如下信息：
+             图片名称、商品详细描述、价格、供应商名字；
+SELECT 
+    p.image_name AS 图片名称, 
+    p.description AS 商品详细描述, 
+    p.price AS 价格, 
+    s.supplier_name AS 供应商名字
+FROM 
+    products p
+JOIN 
+    suppliers s ON p.supplier_id = s.supplier_id
+WHERE 
+    p.product_id = ?;  -- ? 用于绑定商品的唯一标识（产品ID）
+
+       3：查询邮寄地址（按照登录的那个人的对应的多个地址），
+             展示收件人姓名、手机号、详细地址；
+SELECT 
+    a.receiver_name AS 收件人姓名, 
+    a.receiver_phone AS 手机号, 
+    a.address_details AS 详细地址
+FROM 
+    addresses a
+WHERE 
+    a.user_id = ?;  -- ? 用于绑定当前登录用户的ID
+
+
+
+第二题：
+      关于购物车：按照登录用户来查询这个人的购物车：
+     1： 查询购物车所有的信息，展示：商品图片名称、商品详细描述、单价、数量
+       
+SELECT 
+    p.image_name AS 商品图片名称, 
+    p.description AS 商品详细描述, 
+    p.price AS 单价, 
+    c.quantity AS 数量
+FROM 
+    cart c
+JOIN 
+    products p ON c.product_id = p.product_id
+WHERE 
+    c.user_id = ?;  -- ? 用于绑定当前登录用户的ID
+
+
+
+第三题：
+     关于订单：按照登录用户ID来查询这个人的订单
+     1：查询近7天的所有订单：展示订单时间、订单编号、
+        商品图片名称、商品描述、供应商名字、数量、邮寄的收件人姓名、单价、订单状态
+
+SELECT 
+    o.order_date AS 订单时间, 
+    o.order_number AS 订单编号, 
+    p.image_name AS 商品图片名称, 
+    p.description AS 商品描述, 
+    s.supplier_name AS 供应商名字, 
+    od.quantity AS 数量, 
+    a.receiver_name AS 收件人姓名, 
+    p.price AS 单价, 
+    o.order_status AS 订单状态
+FROM 
+    orders o
+JOIN 
+    order_details od ON o.order_id = od.order_id
+JOIN 
+    products p ON od.product_id = p.product_id
+JOIN 
+    suppliers s ON p.supplier_id = s.supplier_id
+JOIN 
+    addresses a ON o.shipping_address_id = a.address_id
+WHERE 
+    o.user_id = ? AND -- ? 用于绑定需要查询用户的ID
+    o.order_date >= CURDATE() - INTERVAL 7 DAY;  -- 查询近7天的订单
+
+
+     2：查询已经完成的订单有哪些：
+          展示订单时间、订单编号、商品图片名称、商品描述、供应商名字、数量、邮寄的收件人姓名、单价、订单状态
+SELECT 
+    o.order_date AS 订单时间, 
+    o.order_number AS 订单编号, 
+    p.image_name AS 商品图片名称, 
+    p.description AS 商品描述, 
+    s.supplier_name AS 供应商名字, 
+    od.quantity AS 数量, 
+    a.receiver_name AS 收件人姓名, 
+    p.price AS 单价, 
+    o.order_status AS 订单状态
+FROM 
+    orders o
+JOIN 
+    order_details od ON o.order_id = od.order_id
+JOIN 
+    products p ON od.product_id = p.product_id
+JOIN 
+    suppliers s ON p.supplier_id = s.supplier_id
+JOIN 
+    addresses a ON o.shipping_address_id = a.address_id
+WHERE 
+    o.user_id = ? AND   -- ? 用于绑定需要查询用户的ID
+    o.order_status = '完成';  -- 查询已经完成的订单
+     
+
+    3：查询某个商品名字（模糊匹配）的订单信息：
+          展示订单时间、订单编号、商品图片名称、商品描述、供应商名字、数量、邮寄的收件人姓名、单价、订单状态
+
+SELECT 
+    o.order_date AS 订单时间, 
+    o.order_number AS 订单编号, 
+    p.image_name AS 商品图片名称, 
+    p.description AS 商品描述, 
+    s.supplier_name AS 供应商名字, 
+    od.quantity AS 数量, 
+    a.receiver_name AS 收件人姓名, 
+    p.price AS 单价, 
+    o.order_status AS 订单状态
+FROM 
+    orders o
+JOIN 
+    order_details od ON o.order_id = od.order_id
+JOIN 
+    products p ON od.product_id = p.product_id
+JOIN 
+    suppliers s ON p.supplier_id = s.supplier_id
+JOIN 
+    addresses a ON o.shipping_address_id = a.address_id
+WHERE 
+    o.user_id = ? AND -- ? 用于绑定需要查询用户的ID
+
+    p.product_name LIKE CONCAT('%', '?', '%');  -- ? 用于绑定当前商品名称（模糊匹配）
+

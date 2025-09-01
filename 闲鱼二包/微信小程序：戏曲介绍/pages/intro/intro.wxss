@@ -1,0 +1,8 @@
+/* pages/intro/intro.wxss */
+.img{
+  margin-top:0;
+}
+
+.contentbox{
+  margin-top:80rpx;
+}

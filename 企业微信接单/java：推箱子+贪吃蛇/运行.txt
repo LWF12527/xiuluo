@@ -1,0 +1,2 @@
+进入贪吃蛇文件夹，
+把javasnack项目拖入idea运行snackMain.java即可

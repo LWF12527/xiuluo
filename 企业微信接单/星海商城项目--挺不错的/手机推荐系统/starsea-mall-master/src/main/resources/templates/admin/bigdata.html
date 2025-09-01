@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>数据展示</title>
+    <link rel="stylesheet" th:href="@{../mall/css/bigs/wodry.css}">
+    <link rel="stylesheet" th:href="@{../mall/css/bigs/index.css}">
+    <link rel="stylesheet" th:href="@{../mall/css/bigs/public.css}">
+
+    <script src="https://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+    <script>
+        $(function () {
+            $('.myscroll').myScroll({
+                speed: 60, //数值越大，速度越慢
+                rowHeight: 38 //li的高度
+            });
+        });
+
+        $(document).ready(function () {
+            var whei = $(window).width()
+            $("html").css({ fontSize: whei / 22 });
+            $(window).resize(function () {
+                var whei = $(window).width();
+                $("html").css({ fontSize: whei / 22 })
+            });
+        });
+    </script>
+</head>
+<body>
+
+<div class="main">
+    <div class="header">
+        <div class="header-left fl" id="time"></div>
+        <div class="header-center fl">
+            <div class="header-title">
+                京东手机推荐数据可视化
+            </div>
+            <div class="header-img"></div>
+        </div>
+        <div class="header-right fl"></div>
+        <div class="header-bottom fl"></div>
+
+    </div>
+
+    <div class="center">
+        <div class="center-left fl">
+            <div class="left-top rightTop border">
+                <!--<h1 id="ceshi">数据可视化</h1>-->
+                <div class="title">基本信息</div>
+                <div class="top-list">
+                    <ul>
+                        <li>成交额：4250万</li>
+                        <li>成交量：3545万台</li>
+                        <li>在线总数：1254万</li>
+                        <li>总手机量：7854万</li>
+                        <li>在线商家：68万</li>
+                        <li>已发台：154万</li>
+                    </ul>
+                </div>
+
+            </div>
+            <div class="left-cen rightTop border">
+                <div class="title">手机量排名</div>
+
+                <ul class="company" id="ceshi">
+
+                    <li class="wodryRX0">
+                        <span>NO.1</span>
+                        湖南，手机累计18.8万台</li><br/>
+                    <li class="wodryRX1">NO.2
+                        河南，手机累计16.5万台</li>
+                    <br/>
+                    <li class="wodryRX2">NO.3
+                        贵州，手机累计15.9万台</li>
+                    <br/>
+                    <li class="wodryRX3">NO.4
+                        上海，手机累计15.2万台</li>
+                    <br/>
+                    <li class="wodryRX4">NO.5
+                        北京，手机累计14.7万台</li>
+                </ul>
+
+            </div>
+            <div class="left-bottom rightTop border">
+                <div class="title">手机分类占比</div>
+                <div class="bottom-b">
+                    <div id="chart3" class="allnav"></div>
+                </div>
+
+            </div>
+        </div>
+        <div class="center-cen fl">
+            <div class="cen-top rightTop border">
+                <div class="top-title">
+                    <ul>
+                        <li>
+                            <p>数量统计</p>
+                            <span>3</span>
+                            <span>6</span>
+                            <span>5</span>
+                            <b>台</b>
+                        </li>
+                        <li>
+                            <p>同比上升</p>
+                            <span>1</span>
+                            <span>3</span>
+                            <b>%</b>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="top-bottom">
+                    <div id="map" class="allnav" style="height: 4.4rem"></div>
+                </div>
+
+
+            </div>
+            <div class="cen-bottom rightTop border">
+                <div class="title">月统计</div>
+                <div class="bottom-b">
+                    <div id="chart4" class="allnav"></div>
+                </div>
+
+            </div>
+        </div>
+        <div class="center-right fr">
+            <div class="right-top rightTop border">
+                <div class="title">手机销售排行</div>
+
+                <div class="echart wenzi">
+                    <div class="gun">
+                    <span>排名</span>
+                    <span>手机名称</span>
+                    <span>销量</span>
+                </div>
+                    <div id="FontScroll" class="myscroll">
+                        <ul>
+                            <li>
+                                <div class="fontInner clearfix">
+                                    <span>
+                                        <b>1</b>
+                                    </span>
+                                    <span>华为Mate 40 Pro</span>
+                                    <span>456万台</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="fontInner clearfix">
+                                    <span>
+                                        <b>2</b>
+                                    </span>
+                                    <span>小米11 Pro</span>
+                                    <span>412万台</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="fontInner clearfix">
+                                    <span>
+                                        <b>3</b>
+                                    </span>
+                                    <span>手机</span>
+                                    <span>4100万</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="fontInner clearfix">
+                                    <span>
+                                        <b>4</b>
+                                    </span>
+                                    <span>OPPO Find X3 Pro</span>
+                                    <span>398万台</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="fontInner clearfix">
+                                    <span>
+                                        <b>5</b>
+                                    </span>
+                                    <span>vivo X60 Pro</span>
+                                    <span>395万台</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="fontInner clearfix">
+                                    <span>
+                                        <b>6</b>
+                                    </span>
+                                    <span>iPhone 13 Pro Max</span>
+                                    <span>382万台</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="fontInner clearfix">
+                                    <span>
+                                        <b>7</b>
+                                    </span>
+                                    <span>三星Galaxy S21 Ultra</span>
+                                    <span>372万台</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="fontInner clearfix">
+                                    <span>
+                                        <b>8</b>
+                                    </span>
+                                    <span>荣耀50 Pro+</span>
+                                    <span>350万台</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="fontInner clearfix">
+                                    <span>
+                                        <b>9</b>
+                                    </span>
+                                    <span>realme GT</span>
+                                    <span>341万台</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="fontInner clearfix">
+                                    <span>
+                                        <b>10</b>
+                                    </span>
+                                    <span>一加9 Pro</span>
+                                    <span>331万台</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="fontInner clearfix">
+                                    <span>
+                                        <b>11</b>
+                                    </span>
+                                    <span>荣耀30 Pro+</span>
+                                    <span>285万台</span>
+
+                                </div>
+                            </li>
+                            <li>
+                                <div class="fontInner clearfix">
+                                    <span>
+                                        <b>12</b>
+                                    </span>
+                                    <span>realme X50 Pro</span>
+                                    <span>263万台</span>
+
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+            <div class="right-cen border">
+                <div class="title">各平台占比</div>
+                <div class="right-cen-cent">
+                    <div id="chart2" class="allnav"></div>
+                </div>
+
+            </div>
+            <div class="right-bottom rightTop border">
+                <div class="title">京东出口国家城市排行</div>
+                <div class="chat">
+                    <div id="chart5" class="allnav"></div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+<script th:src="@{../mall/js/bigs/jquery.min.js}"></script>
+<script src="https://www.jq22.com/jquery/echarts-4.2.1.min.js"></script>
+<script th:src="@{../mall/js/bigs/wodry.min.js}"></script>
+<script th:src="@{../mall/js/bigs/fontscroll.js}"></script>
+<script th:src="@{../mall/js/bigs/echarts.js}"></script>
+<script th:src="@{../mall/js/bigs/china.js}"></script>
+<!--<script src="js/mymap.js"></script>-->
+<script>
+    /*$('#ceshi').wodry({
+
+        animation: 'rotateX',
+
+        delay: 1000,
+
+        animationDuration: 800
+
+    });*/
+    /*window.onload = function () {
+        setInterval(function () {
+            var hs=document.getElementById("ceshi");
+            var hstyle=hs.style.transform;
+            if(hstyle=='rotateX(-360deg)'){
+                //console.log(1)
+                hs.style.transform='rotateX(0deg)';
+                hs.style.transform='transform 500ms cubic-bezier(0.55, 0.18, 0.92, 0.46) 0s;'
+            }else {
+                hs.style.transform='rotateX(-360deg)';
+                hs.style.transition="all 2s";
+            }
+        }, 5000);
+    };*/
+    var counter = 3000;
+    var ulist=document.getElementById("ceshi").getElementsByTagName("li");
+    for (var i=0;i<ulist.length;i++){
+        //console.log(ulist[i].className);
+        var liclass=ulist[i].className;
+        var a= $('.'+liclass+'').wodry({
+            animation: 'rotateX',
+            delay: counter,
+            animationDuration: 1000
+        });
+        if(counter>3050){
+            counter=3000;
+        }else {
+            counter +=10;
+        }
+        //console.log(counter);
+
+    }
+
+    //顶部时间
+    function getTime(){
+        var myDate = new Date();
+        var myYear = myDate.getFullYear(); //获取完整的年份(4位,1970-????)
+        var myMonth = myDate.getMonth()+1; //获取当前月份(0-11,0代表1月)
+        var myToday = myDate.getDate(); //获取当前日(1-31)
+        var myDay = myDate.getDay(); //获取当前星期X(0-6,0代表星期天)
+        var myHour = myDate.getHours(); //获取当前小时数(0-23)
+        var myMinute = myDate.getMinutes(); //获取当前分钟数(0-59)
+        var mySecond = myDate.getSeconds(); //获取当前秒数(0-59)
+        var week = ['星期日','星期一','星期二','星期三','星期四','星期五','星期六'];
+        var nowTime;
+
+        nowTime = myYear+'-'+fillZero(myMonth)+'-'+fillZero(myToday)+'&nbsp;&nbsp;'+fillZero(myHour)+':'+fillZero(myMinute)+':'+fillZero(mySecond)+'&nbsp;&nbsp;'+week[myDay]+'&nbsp;&nbsp;';
+        //console.log(nowTime);
+        $('#time').html(nowTime);
+    };
+    function fillZero(str){
+        var realNum;
+        if(str<10){
+            realNum	= '0'+str;
+        }else{
+            realNum	= str;
+        }
+        return realNum;
+    }
+    setInterval(getTime,1000);
+
+</script>
+
+</body>
+</html>

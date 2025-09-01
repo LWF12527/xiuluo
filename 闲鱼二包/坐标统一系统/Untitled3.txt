@@ -1,0 +1,89 @@
+clc
+clear
+close all
+
+load x.mat
+load y.mat %导入数据
+
+x=Rotor_Spd_rpm;
+y=real(response_obj);%简化名称
+% figure
+% for ii = 1:100
+% plot(x(ii,:),y(ii,:),'-')
+% hold on
+% end
+
+[m,n ]= size(x);%行列值
+xx1=x(2);%寻找第一个波峰%第一条线
+for ii = 2:n
+    if y(1,ii)>y(1,ii-1)&&y(1,ii)>y(1,ii+1)%同时大于左右
+        xx1=x(1,ii);%波峰
+        ka1=ii;%波峰坐标
+        break
+    end
+end
+xx2=x(end-1);%最后一个波谷%第一条线
+for ii = n-1:-1:1
+    if y(1,ii)<y(1,ii-1)&&y(1,ii)<y(1,ii+1)%同时小于左右
+        xx2=x(1,ii);%波谷
+        ka2=ii;%坐标
+        break
+    end
+end
+
+for jj = 2:1000%第2--1000条线
+    xy1=x(jj,2);%方法同上
+    for ii = 2:n
+        if y(jj,ii)>y(jj,ii-1)&&y(jj,ii)>y(jj,ii+1)
+            xy1=x(jj,ii);
+            id1=ii;
+            break
+            
+        end
+    end
+    xy2=x(end-1);
+    
+    for ii = n-1:-1:1%方法同上
+        if y(jj,ii)<y(jj,ii-1)&&y(jj,ii)<y(jj,ii+1)
+            xy2=x(jj,ii);
+            id2 = ii;
+            break
+        end
+    end
+    xz = xy1:10:xy2;%第2到1000坐标第一波风到最后一个波谷
+    zz = xx1:10:xx2;%第一条线坐标第一波风到最后一个波谷
+   [ xz1 ,ps]= mapminmax(xz,xx1,xx2);%第2到1000坐标第一波风到最后一个波谷坐转换为第一条线相同的波峰波谷
+   yz = interp1(xz1,y(jj,id1:id2),zz);%转换后对Y坐标按照X轴相同刻度插值
+   ax = [-10000:10:0 10:10:xx1];%第一条线波峰以前的点进行
+   ay = [y(jj,1)*ones(1,1001) y(jj,1:ka1)];
+   ax1 = mapminmax('apply',ax,ps);%转换插值同上
+   ax2= 10:10:xx1;
+   ay1 = interp1(ax1,ay,ax2);
+   
+   bx = [ xx2:10:50000];%最后一个波谷后的点，同上
+   by = [y(jj,ka2:end) y(jj,end)*ones(1,1000) ];
+  
+   bx1 = mapminmax('apply',bx,ps);
+   bx2 = xx2:10:40000;
+   by1 = interp1(bx1,by,bx2);
+   y(jj,:)=[ay1(1:end-1) yz by1(2:end)]; %保存调整后的2-1000的Y坐标值
+    
+    
+end
+    
+
+figure
+for ii = 1:1000
+plot(x(ii,:),y(ii,:),'-')%画图
+hold on
+end
+
+
+
+
+
+
+
+
+
+

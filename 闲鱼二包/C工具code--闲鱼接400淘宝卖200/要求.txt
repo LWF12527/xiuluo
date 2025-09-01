@@ -1,0 +1,8 @@
+1、就是根据要求补充Utility文件夹的：
+data.c(12个函数)	myString.c(9个函数)	uio.c(5个函数)	
+以及Test\\testUIO.c(2个函数)
+
+有部分已经完成了（在‘已完成部分’文件夹）
+
+2、然后在Test文件夹下面的Test--.c文件进行测试，
+得到的exe文件和Code_toStudent\Test\Windows下的exe文件一致

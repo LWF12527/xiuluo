@@ -1,0 +1,52 @@
+﻿生成启动时间为 2015/3/25 23:21:59。
+     1>项目“E:\VCstudy\five\Five\Five.vcxproj”在节点 2 上(rebuild 个目标)。
+     1>_PrepareForClean:
+         正在删除文件“.\Release\Five.lastbuildstate”。
+       InitializeBuildStatus:
+         正在创建“.\Release\Five.unsuccessfulbuild”，因为已指定“AlwaysCreate”。
+       ClCompile:
+         E:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /O2 /Ob1 /Oy- /D WIN32 /D NDEBUG /D _WINDOWS /D _VC80_UPGRADE=0x0600 /D _MBCS /GF /Gm- /EHsc /MT /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Yc"stdafx.h" /Fp".\Release\Five.pch" /Fo".\Release\\" /Fd".\Release\vc100.pdb" /FR".\Release\\" /Gd /TP /analyze- /errorReport:prompt StdAfx.cpp
+         StdAfx.cpp
+         _WIN32_WINNT not defined. Defaulting to _WIN32_WINNT_MAXVER (see WinSDKVer.h)
+         E:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /O2 /Ob1 /Oy- /D WIN32 /D NDEBUG /D _WINDOWS /D _VC80_UPGRADE=0x0600 /D _MBCS /GF /Gm- /EHsc /MT /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp".\Release\Five.pch" /Fo".\Release\\" /Fd".\Release\vc100.pdb" /FR".\Release\\" /Gd /TP /analyze- /errorReport:prompt AboutDlg.cpp ClientDlg.cpp Five.cpp FiveDlg.cpp FiveSocket.cpp Game.cpp NameDlg.cpp ServerDlg.cpp StatDlg.cpp Table.cpp
+         AboutDlg.cpp
+         ClientDlg.cpp
+         Five.cpp
+     1>Five.cpp(58): warning C4996: 'CWinApp::Enable3dControlsStatic': CWinApp::Enable3dControlsStatic is no longer needed. You should remove this call.
+                 E:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\atlmfc\include\afxwin.h(5347) : 参见“CWinApp::Enable3dControlsStatic”的声明
+         FiveDlg.cpp
+         FiveSocket.cpp
+         Game.cpp
+         NameDlg.cpp
+         ServerDlg.cpp
+         StatDlg.cpp
+         Table.cpp
+         正在生成代码...
+       ResourceCompile:
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\rc.exe /D NDEBUG /D _VC80_UPGRADE=0x0600 /l"0x0804" /nologo /fo".\Release\Five.res" Five.rc 
+       Link:
+         E:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:".\Release\Five.exe" /VERSION:"1.0" /INCREMENTAL:NO /NOLOGO winmm.lib /MANIFEST /ManifestFile:".\Release\Five.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /PDB:"E:\VCstudy\five\Five\Release\Five.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:".\Release\Five.lib" /MACHINE:X86 .\Release\Five.res
+         .\Release\AboutDlg.obj
+         .\Release\ClientDlg.obj
+         .\Release\Five.obj
+         .\Release\FiveDlg.obj
+         .\Release\FiveSocket.obj
+         .\Release\Game.obj
+         .\Release\NameDlg.obj
+         .\Release\ServerDlg.obj
+         .\Release\StatDlg.obj
+         .\Release\StdAfx.obj
+         .\Release\Table.obj
+         Five.vcxproj -> E:\VCstudy\five\Five\.\Release\Five.exe
+       Manifest:
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /outputresource:".\Release\Five.exe;#1" /manifest .\Release\Five.exe.intermediate.manifest "E:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\Include\Manifest\dpiaware.manifest"
+       BscMake:
+         E:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\bscmake.exe /nologo /o".\Release\Five.bsc" .\Release\AboutDlg.sbr .\Release\ClientDlg.sbr .\Release\Five.sbr .\Release\FiveDlg.sbr .\Release\FiveSocket.sbr .\Release\Game.sbr .\Release\NameDlg.sbr .\Release\ServerDlg.sbr .\Release\StatDlg.sbr .\Release\StdAfx.sbr .\Release\Table.sbr
+       FinalizeBuildStatus:
+         正在删除文件“.\Release\Five.unsuccessfulbuild”。
+         正在对“.\Release\Five.lastbuildstate”执行 Touch 任务。
+     1>已完成生成项目“E:\VCstudy\five\Five\Five.vcxproj”(rebuild 个目标)的操作。
+
+生成成功。
+
+已用时间 00:00:07.64

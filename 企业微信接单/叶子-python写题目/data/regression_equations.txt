@@ -1,0 +1,12 @@
+margin2:
+Equation: margin1 = 0.4097 * margin2 + 0.0057
+R^2: 0.6503
+
+margin6:
+Equation: margin1 = 0.2913 * margin6 + 0.0062
+R^2: 0.5894
+
+margin11:
+Equation: margin1 = 0.5580 * margin11 + 0.0039
+R^2: 0.5438
+

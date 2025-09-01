@@ -2,8 +2,10 @@ import asyncio
 import logging
 import random
 import sys
+import time
 
 from playwright.async_api import async_playwright
+from selenium.webdriver.common.devtools.v136.runtime import await_promise
 
 if sys.platform == 'win32':
     asyncio.set_event_loop_policy(asyncio.WindowsProactorEventLoopPolicy())
@@ -30,14 +32,17 @@ async def login(page, username, password):
     logger.info(f"开始登录: {username}")
     try:
         # 导航到登录页
-        await page.goto(LOGIN_URL, timeout=60000, wait_until="domcontentloaded")
+        await page.goto(LOGIN_URL, timeout=60000, wait_until="networkidle")
 
-        # 填写登录表单（根据实际网站元素修改选择器）
-        await page.fill('xpath=(//div[@class="eds-input__inner eds-input__inner--large"])[1]', username)
-        await page.fill('xpath=(//div[@class="eds-input__inner eds-input__inner--large"])[2]', password)
+        account_elem = await page.locator('xpath=//div[@class="account-name"]').count()
+        if account_elem>0:
+            await page.click('//i[@class="eds-icon up"]')
+            await page.click('text="登出"')
+        await page.fill('input[type="text"]', username)  # 用户名输入框
+        await page.fill('input[type="password"]', password)  # 密码输入框
 
-        # 点击登入
-        await page.click('(//button[@type="button"])[1]')
+        # 点击登入按钮（优化定位）
+        await page.click('button:has-text("登入")')
 
         # 等待登录成功（示例：等待导航完成）
         await page.wait_for_url('**/cnsc_shop_id/**', timeout=30000)
@@ -60,8 +65,6 @@ async def process_account(page, account, account_idx):
         # 这里添加登录后的具体业务逻辑
         logger.info(f"开始处理任务 #{account_idx + 1} - {username}")
 
-
-
         await asyncio.sleep(WAIT_TIME)
 
         logger.info(f"账号处理完成: {username}")
@@ -75,16 +78,10 @@ async def main():
     """主程序入口"""
     # 启动Playwright
     async with async_playwright() as p:
-        # 创建持久化浏览器上下文
+        # 创建带数据目录的上下文
         context = await p.chromium.launch_persistent_context(
             user_data_dir=r"D:\project\myProject\shopee_modify_days\chrome9601",
             headless=False,
-            args=[
-                "--disable-gpu",
-                "--disable-dev-shm-usage",
-                "--no-sandbox",
-                "--disable-blink-features=AutomationControlled",
-            ]
         )
         logger.info("浏览器上下文创建成功")
 

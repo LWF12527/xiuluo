@@ -1,0 +1,26 @@
+MAP_PENALTY = 7.0
+DELAY_PENALTY = 2.0  
+ENERGY_PENALTY = 1.0
+
+if config <= 3:
+           delay = video_frame_infertime
+           energy += video_frame_size / pow(10, 6)
+if config > 3:
+            throughout=cooked_bw[ptr] * pow(10,6)/ 8
+		    //throughout， 每行所花时间累加
+            delay1=  video_frame_size/throughout
+            delay = video_frame_infertime + delay1 * 1000
+            energy = 0.5*pow(10,-5) * 8 * video_frame_size
+          
+reward = MAP_PENALTY * video_frame_map * 100 \
+                     - DELAY_PENALTY * delay \
+                     - ENERGY_PENALTY * energy * 100
+
+注：
+cooked_bw[ptr]是test的第二列数组，依次？
+throughout累加
+（1）找出reward最大的那一行，thoughout的计算在‘test’文件夹里，test文件夹里的第一列数据代表时间，第二排的数据代表带宽Bandwidth,
+用第二行的第一个数据减去第一行的第一个数据就是第一行的第二个数据的持续时间。
+（2）data文件夹里的表格数据每一列代表的意思：id,  solution，video_frame_size，video_frame_map，video_frame_infertime，model
+前三个表格video_size_0、1、2是config=1,2,3，后面依次类推。
+ 

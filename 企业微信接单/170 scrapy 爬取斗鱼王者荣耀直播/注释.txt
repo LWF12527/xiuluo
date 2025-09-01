@@ -1,0 +1,25 @@
+一.执行:
+1先创建表,执行douyu.sql,
+2执行run.py即可
+
+
+二,爬取斗鱼，王者荣耀直播页面:
+通过网络检查获取url;
+            url = "https://www.douyu.com/gapi/rkc/directory/mixList/2_181/{}".format(i)
+返回是json数据,然后找到url_id,拼接房间链接
+            self.url = "https://www.douyu.com" + data_json['data']['rl'][i]['url']
+第二次进入页面获取观看人数,标题,用户id,用户头像图片等等
+
+一共请求约1000次
+
+保存在mysql,
+编程中犯了一个错误,没有开启管道,所以一直无法将数据存储
+
+具体细节都在代码
+pipelines中mysql信息改为自己的账号密码
+
+需要使用的文件就4个:setting.py, items.py, pipelines.py, dy.py
+
+
+
+

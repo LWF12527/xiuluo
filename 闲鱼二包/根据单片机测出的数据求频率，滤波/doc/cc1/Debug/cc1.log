@@ -1,0 +1,9 @@
+﻿  main.cpp
+C:\Users\13152\Desktop\work\订单\订单-500-微信-客服-星星晚睡\cc1\main.cpp(96,13): warning C4326: “main”的返回类型应为“int”而非“void”
+C:\Users\13152\Desktop\work\订单\订单-500-微信-客服-星星晚睡\cc1\main.cpp(110,29): warning C4244: “=”: 从“int”转换到“float”，可能丢失数据
+C:\Users\13152\Desktop\work\订单\订单-500-微信-客服-星星晚睡\cc1\main.cpp(150,30): warning C4244: “初始化”: 从“double”转换到“int”，可能丢失数据
+C:\Users\13152\Desktop\work\订单\订单-500-微信-客服-星星晚睡\cc1\main.cpp(153,34): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+C:\Users\13152\Desktop\work\订单\订单-500-微信-客服-星星晚睡\cc1\main.cpp(228,20): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+C:\Users\13152\Desktop\work\订单\订单-500-微信-客服-星星晚睡\cc1\main.cpp(234,25): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+C:\Users\13152\Desktop\work\订单\订单-500-微信-客服-星星晚睡\cc1\main.cpp(235,25): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+  cc1.vcxproj -> C:\Users\13152\Desktop\work\订单\订单-500-微信-客服-星星晚睡\cc1\Debug\cc1.exe

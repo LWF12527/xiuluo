@@ -249,7 +249,7 @@
                         选中的号码：<span class="red-number">2</span> <span class="red-number">8</span> <span class="red-number">13</span> <span class="red-number">16</span> <span class="red-number">21</span> <span class="red-number">23</span> <span class="separator">→</span> <span class="blue-number">12</span>
                     </div>
 
-                    <div class="capture-control-section">
+                    <div class="capture-control-section" style="display: none;">
                         <div class="capture-control">
                             <h3>截图区域设置</h3>
                             <div class="capture-control-grid">
@@ -263,14 +263,13 @@
                                 </div>
                                 <div class="capture-control-row">
                                     <span class="capture-label">宽度:</span>
-                                    <input type="number" class="capture-input" id="capture-width" min="50" value="400">
+                                    <input type="number" class="capture-input" id="capture-width" min="50" value="730">
                                 </div>
                                 <div class="capture-control-row">
                                     <span class="capture-label">高度:</span>
-                                    <input type="number" class="capture-input" id="capture-height" min="50" value="200">
+                                    <input type="number" class="capture-input" id="capture-height" min="50" value="425">
                                 </div>
                             </div>
-                            <div class="dimension-display" id="dimension-display">400px × 200px</div>
                             <button class="capture-reset-btn" id="capture-reset">重置截图区域</button>
                             <button class="preview-btn" id="preview-capture">预览截图区域</button>
                         </div>
@@ -295,7 +294,7 @@
                         选中的号码：<span class="red-number">3</span> <span class="red-number">11</span> <span class="red-number">13</span> <span class="red-number">22</span> <span class="red-number">31</span> <span class="blue-number">2</span> <span class="blue-number">8</span>
                     </div>
 
-                    <div class="capture-control-section">
+                    <div class="capture-control-section" style="display: none;">
                         <div class="capture-control">
                             <h3>截图区域设置</h3>
                             <div class="capture-control-grid">
@@ -309,14 +308,13 @@
                                 </div>
                                 <div class="capture-control-row">
                                     <span class="capture-label">宽度:</span>
-                                    <input type="number" class="capture-input" id="capture-width" min="50" value="400">
+                                    <input type="number" class="capture-input" id="capture-width" min="50" value="730">
                                 </div>
                                 <div class="capture-control-row">
                                     <span class="capture-label">高度:</span>
-                                    <input type="number" class="capture-input" id="capture-height" min="50" value="200">
+                                    <input type="number" class="capture-input" id="capture-height" min="50" value="390">
                                 </div>
                             </div>
-                            <div class="dimension-display" id="dimension-display">400px × 200px</div>
                             <button class="capture-reset-btn" id="capture-reset">重置截图区域</button>
                             <button class="preview-btn" id="preview-capture">预览截图区域</button>
                         </div>
@@ -415,7 +413,7 @@
                         <div class="accordion-content">
                             <div class="batch-control">
                                 <div class="batch-control-row">
-                                    <label>生成图片数量:</label>
+                                    <label>双色球生成图片数量:</label>
                                     <input type="number" id="ssq-count" min="1" max="100" value="5">
                                 </div>
                                 <div class="path-selector">
@@ -424,7 +422,7 @@
                                 </div>
 
                                 <div class="batch-control-row" style="margin-top: 15px;">
-                                    <label>生成图片数量:</label>
+                                    <label>大乐透生成图片数量:</label>
                                     <input type="number" id="dlt-count" min="1" max="100" value="5">
                                 </div>
                                 <div class="path-selector">
@@ -456,6 +454,49 @@ document.addEventListener('DOMContentLoaded', () => {
     setupBackgroundControl();
     setupCaptureControl();
     setupAccordions();
+    // 为双色球设置截图输入框ID
+    const ssqX = document.querySelector('#ssq-content #capture-x');
+    if(ssqX) ssqX.id = 'ssq-capture-x';
+
+    const ssqY = document.querySelector('#ssq-content #capture-y');
+    if(ssqY) ssqY.id = 'ssq-capture-y';
+
+    const ssqWidth = document.querySelector('#ssq-content #capture-width');
+    if(ssqWidth) ssqWidth.id = 'ssq-capture-width';
+
+    const ssqHeight = document.querySelector('#ssq-content #capture-height');
+    if(ssqHeight) ssqHeight.id = 'ssq-capture-height';
+
+    // 为大乐透设置截图输入框ID和默认高度
+    const dltX = document.querySelector('#dlt-content #capture-x');
+    if(dltX) dltX.id = 'dlt-capture-x';
+
+    const dltY = document.querySelector('#dlt-content #capture-y');
+    if(dltY) dltY.id = 'dlt-capture-y';
+
+    const dltWidth = document.querySelector('#dlt-content #capture-width');
+    if(dltWidth) dltWidth.id = 'dlt-capture-width';
+
+    const dltHeight = document.querySelector('#dlt-content #capture-height');
+    if(dltHeight) {
+        dltHeight.id = 'dlt-capture-height';
+        dltHeight.value = 390; // 设置大乐透默认高度为390
+    }
+
+    // 更新预览和重置按钮的ID
+    const ssqPreview = document.querySelector('#ssq-content #preview-capture');
+    if(ssqPreview) ssqPreview.id = 'ssq-preview-capture';
+
+    const dltPreview = document.querySelector('#dlt-content #preview-capture');
+    if(dltPreview) dltPreview.id = 'dlt-preview-capture';
+
+    const ssqReset = document.querySelector('#ssq-content #capture-reset');
+    if(ssqReset) ssqReset.id = 'ssq-capture-reset';
+
+    const dltReset = document.querySelector('#dlt-content #capture-reset');
+    if(dltReset) dltReset.id = 'dlt-capture-reset';
+
+
 });
 
 // -------------------- 全局状态 --------------------
@@ -801,8 +842,8 @@ function previewCaptureArea() {
 
     const x = parseInt(document.getElementById('capture-x').value) || 0;
     const y = parseInt(document.getElementById('capture-y').value) || 0;
-    const width = parseInt(document.getElementById('capture-width').value) || 400;
-    const height = parseInt(document.getElementById('capture-height').value) || 200;
+    const width = parseInt(document.getElementById('capture-width').value) || 730;
+    const height = parseInt(document.getElementById('capture-height').value) || 425;
 
     // 确保选择框在可见区域内
     const maxX = rect.width - width;
@@ -832,8 +873,8 @@ function updateSelectionBoxPosition() {
 
     const x = parseInt(document.getElementById('capture-x').value) || 0;
     const y = parseInt(document.getElementById('capture-y').value) || 0;
-    const width = parseInt(document.getElementById('capture-width').value) || 400;
-    const height = parseInt(document.getElementById('capture-height').value) || 200;
+    const width = parseInt(document.getElementById('capture-width').value) || 730;
+    const height = parseInt(document.getElementById('capture-height').value) || 425;
 
     // 确保选择框在可见区域内
     const maxX = rect.width - width;
@@ -876,15 +917,15 @@ function resetCaptureArea() {
     if (currentLottery === 'ssq') {
         document.getElementById('capture-x').value = 0;
         document.getElementById('capture-y').value = 0;
-        document.getElementById('capture-width').value = 400;
-        document.getElementById('capture-height').value = 450;
+        document.getElementById('capture-width').value = 730;
+        document.getElementById('capture-height').value = 425;
     }
     // 大乐透默认区域
     else {
         document.getElementById('capture-x').value = 0;
         document.getElementById('capture-y').value = 0;
-        document.getElementById('capture-width').value = 400;
-        document.getElementById('capture-height').value = 480;
+        document.getElementById('capture-width').value = 730;
+        document.getElementById('capture-height').value = 390;
     }
 
     updateSelectionBoxPosition();
@@ -903,25 +944,29 @@ function setupAccordions() {
 }
 
 // -------------------- 截图保存 --------------------
+
 async function saveScreenshots(prefix,label,count,dirHandle){
     const useFS = !!dirHandle && 'showDirectoryPicker' in window;
     stopRolling(prefix);
 
     const section = document.getElementById(`${prefix}-content`);
-    const selectedDiv = section.querySelector(`#${prefix}-selected`);
 
     // 临时添加类以隐藏控制按钮
     section.classList.add('hide-controls');
 
     try {
-        // 获取用户设置的截图区域
-        const x = parseInt(document.getElementById('capture-x').value) || 0;
-        const y = parseInt(document.getElementById('capture-y').value) || 0;
-        const width = parseInt(document.getElementById('capture-width').value) || 400;
-        const height = parseInt(document.getElementById('capture-height').value) || 200;
+        // 获取用户设置的截图区域 - 根据彩票类型使用不同的输入框
+        const x = parseInt(document.getElementById(`${prefix}-capture-x`).value) || 0;
+        const y = parseInt(document.getElementById(`${prefix}-capture-y`).value) || 0;
+        const width = parseInt(document.getElementById(`${prefix}-capture-width`).value) || 730;
+
+        // 关键修复：根据彩票类型使用不同的默认高度
+        const height = prefix === 'ssq' ?
+            (parseInt(document.getElementById(`${prefix}-capture-height`).value) || 425) :
+            (parseInt(document.getElementById(`${prefix}-capture-height`).value) || 390);
 
         for(let i=1;i<=count;i++){
-            const cfg = prefix==='ssq' ? {rMax:33,rCount:6,bMax:16,bCount:1} : {rMax:35,rCount:5,bMax:12,bCount:2};
+            const cfg = prefix==='ssq' ? {rMax:33, rCount:6, bMax:16, bCount:1} : {rMax:35, rCount:5, bMax:12, bCount:2};
             const r = randomPick(cfg.rCount, cfg.rMax);
             const b = randomPick(cfg.bCount, cfg.bMax);
             applyPick(prefix, r, b);

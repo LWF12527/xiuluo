@@ -3,8 +3,8 @@ import os
 import time
 import re
 import sys
-import xml.etree.ElementTree as ET
 import tempfile
+import shlex  # 添加shlex用于安全解析命令
 
 
 class AndroidElementOperator:
@@ -266,6 +266,47 @@ class AndroidElementOperator:
             print(f"未找到资源ID: {resource_id}")
             return False
 
+    def execute_adb_command(self, command):
+        """执行任意ADB命令"""
+        print(f"执行ADB命令: {command}")
+
+        # 安全解析命令
+        try:
+            parsed_command = shlex.split(command)
+        except Exception as e:
+            print(f"命令解析失败: {str(e)}")
+            return False
+
+        # 构建完整命令
+        cmd = [self.adb_path]
+        if self.device_id:
+            cmd.extend(["-s", self.device_id])
+        cmd.extend(parsed_command)
+
+        print(f"完整命令: {' '.join(cmd)}")
+
+        try:
+            # 执行命令并捕获输出
+            result = subprocess.run(
+                cmd,
+                capture_output=True,
+                text=True,
+                check=True
+            )
+
+            # 打印结果
+            print("命令执行成功")
+            print("输出结果:")
+            print(result.stdout)
+
+            return True
+        except subprocess.CalledProcessError as e:
+            print(f"命令执行失败: {e.stderr.strip()}")
+            return False
+        except Exception as e:
+            print(f"执行过程中出错: {str(e)}")
+            return False
+
 
 # 主程序
 if __name__ == "__main__":
@@ -282,8 +323,9 @@ if __name__ == "__main__":
         print("\n===== 元素操作菜单 =====")
         print("1. 通过资源ID点击元素")
         print("2. 点击坐标")
-        print("3. 直接输入文本")  # 新增选项
-        print("4. 通过资源ID输入文本")  # 新增选项
+        print("3. 直接输入文本")
+        print("4. 通过资源ID输入文本")
+        print("5. 执行ADB命令")  # 新增选项
         print("0. 退出")
 
         option = input("请选择操作: ")
@@ -303,7 +345,7 @@ if __name__ == "__main__":
             else:
                 print("无效的坐标")
 
-        elif option == "3":  # 新增选项处理
+        elif option == "3":
             text = input("输入要输入的文本: ")
             success = operator.input_text(text)
             if success:
@@ -311,7 +353,7 @@ if __name__ == "__main__":
             else:
                 print("文本输入失败")
 
-        elif option == "4":  # 新增选项处理
+        elif option == "4":
             resource_id = input("输入目标输入框的资源ID: ")
             text = input("输入要输入的文本: ")
             success = operator.input_text_by_id(resource_id, text)
@@ -319,6 +361,14 @@ if __name__ == "__main__":
                 print("文本输入成功")
             else:
                 print("文本输入失败")
+
+        elif option == "5":  # 新增选项处理
+            command = input("输入要执行的ADB命令: ")
+            success = operator.execute_adb_command(command)
+            if success:
+                print("命令执行成功")
+            else:
+                print("命令执行失败")
 
         elif option == "0":
             print("程序退出")

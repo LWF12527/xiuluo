@@ -3,16 +3,14 @@ import os
 import random
 import sys
 import time
-import json
-from typing import List, Dict, Any, Tuple
 from dataclasses import dataclass
-from concurrent.futures import ThreadPoolExecutor
+from typing import List, Dict, Any
+
 import aiohttp
 from loguru import logger
 from lxml import html
 
 from async_custom_mysql_pool import DbManager
-from 立陶宛总统讲话采集.增量爬虫_获取请求链接 import cookies
 
 # Windows 平台兼容性设置
 if sys.platform == 'win32':
@@ -40,9 +38,12 @@ headers = {
     "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
     "accept-language": "zh-CN,zh;q=0.9",
     "cache-control": "no-cache",
+    "content-type": "application/x-www-form-urlencoded",
     "dnt": "1",
+    "origin": "https://archyvas.lrp.lt",
     "pragma": "no-cache",
     "priority": "u=0, i",
+    "referer": "https://archyvas.lrp.lt/paksas/en/sarasasdd13.html?nuo=1&kat=12&search=&__cf_chl_tk=liybxDN16AUvRZHrQxYyDs8s2cx6_z5EC1aTlevXSD4-1762480643-1.0.1.1-RpDWc_g2cRJtaz02bsRh0NEcT1gQPeChrGVKKtzso9E",
     "sec-ch-ua": "\"Google Chrome\";v=\"141\", \"Not?A_Brand\";v=\"8\", \"Chromium\";v=\"141\"",
     "sec-ch-ua-arch": "\"x86\"",
     "sec-ch-ua-bitness": "\"64\"",
@@ -54,19 +55,12 @@ headers = {
     "sec-ch-ua-platform-version": "\"15.0.0\"",
     "sec-fetch-dest": "document",
     "sec-fetch-mode": "navigate",
-    "sec-fetch-site": "none",
-    "sec-fetch-user": "?1",
+    "sec-fetch-site": "same-origin",
     "upgrade-insecure-requests": "1",
     "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36"
 }
 cookies = {
-    "privacy_2": "0",
-    "privacy_3": "0",
-    "privacy_4": "0",
-    "privacy_verify": "1",
-    "cf_clearance": "9OspfTJUwgBfX0ppwWljCvG4zhJBbYE6285VV8FZM6c-1762478537-1.2.1.1-biYo2Gen.10fZPTG222gkgikXyOEyKZEfgAGREcdleMYs6ampFTPaxehFV2jr9rIJmtAl3PPtyMSSOZquZs7XCTkac9wJ.khepFv0T4cD90zQJncpftnOipAcTUJDUQ9Gf2yqHZLfSxcE71Hb27ZQMygmIDHv3PLA8_PpPDLwd7ZBVgkAzQPa2GREwkxl5SE8v4PVRNu60QVuo21Wd84temPDiOG0recBRHD4PtC9Do",
-    "EW4SITE": "ccl554rjlv88trqcd2ktlg9nsc",
-    "SITEXSRF141": "qhp7n3buuccx8r8b248ptt32rj1wd6zj"
+    "cf_clearance": "Yw.MnFxuwbJpuyEa61kZq2H9k8Z2WNI6Yhd1nkdntnk-1762480655-1.2.1.1-F2T_kpMdyhSI3VYBIorJYDfxdX_dwR5zjFXAYK4o3vuV52UWCrVgsnRyOK1fUqGAkbAezqvHfcQoR07na1vRRn7fO8cS.aXoLCMfMitKJgaCeEW9tsm0dJx4tIhK3uArPNkOiY6gL9M2me1gczW1gK7N2oexoViGUgEXmKZqmZuSbdHuIB4tKqlkcDbSMBdEobKzrlFKkCEag0LLgmQvn8BUVJoV9GXfvDZ6J0G.xlQ"
 }
 
 # URL配置
@@ -271,10 +265,11 @@ class RealTimeSpider:
                 logger.debug(f"Type1-{lang} 第{page_count}页: {current_url}")
                 html_content = await self.fetch_page_with_retry(current_url)
                 tree = html.fromstring(html_content)
+                print(html_content)
 
                 # 提取文章数据
-                url_list = tree.xpath('//div[@align="justify"]//tbody//a/@href')
-                date_list = tree.xpath('//div[@align="justify"]//tbody//td[1]/text()')
+                url_list = tree.xpath('//div[@align="justify"]//td//a/@href')
+                date_list = tree.xpath('//div[@align="justify"]//td[1]/text()')
 
                 articles = []
                 for i, url_item in enumerate(url_list):
@@ -294,7 +289,7 @@ class RealTimeSpider:
                 logger.info(f"Type1-{lang} 第{page_count}页: 找到 {len(articles)} 篇文章")
 
                 # 检查下一页
-                next_url_ele = tree.xpath('//a[.="Toliau >>"]/@href')
+                next_url_ele = tree.xpath('//a[.="Toliau >>"]/@href | //a[.="Next >>"]/@href')
                 current_url = site_base + next_url_ele[0] if next_url_ele else None
                 page_count += 1
 
@@ -445,8 +440,8 @@ async def main_async():
 
                 await asyncio.gather(
                     spider.process_type1_urls(),
-                    spider.process_type2_urls(),
-                    spider.process_type3_urls(),
+                    # spider.process_type2_urls(),
+                    # spider.process_type3_urls(),
                     return_exceptions=True
                 )
 

@@ -1,4 +1,12 @@
+import os
+import sys
+
 import requests
+current_dir = os.path.dirname(os.path.abspath(__file__))
+parent_dir = os.path.dirname(current_dir)
+sys.path.append(parent_dir)
+from mytest.proxy import proxy_jlsd
+
 
 url = "https://npro.maoyan.com/api/ncinema/box/cinema/follow.json"
 params = {'type': '0', 'beginDate': '20251126', 'isSplit': '0', 'cityId': '0', 'filterJson': '{}', 'utm_term': '8.12.0', 'utm_source': 'xiaomi', 'utm_medium': 'android',
@@ -22,7 +30,9 @@ headers = {
 response = requests.get(
     url=url,
     params=params,
-    headers=headers
+    headers=headers,
+    proxies=proxy_jlsd()
+
 )
 
 print(f"状态码: {response.status_code}")

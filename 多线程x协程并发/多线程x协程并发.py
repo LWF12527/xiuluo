@@ -51,6 +51,7 @@ async def fetch_url(url: str, session: aiohttp.ClientSession, thread_id: int):
         async with session.get(url) as response:
             # 读取完整的响应文本
             text = await response.text()
+            await asyncio.sleep(2)
             elapsed = time.time() - start
 
             # 判断响应文本长度是否大于10万字符
@@ -149,7 +150,7 @@ if __name__ == "__main__":
     print(f"理论最大并发: 10线程 × 50协程 = 500并发")
 
     # 创建爬虫，设置线程数和协程并发数
-    crawler = ThreadPoolAsyncCrawler(max_workers=10, max_concurrent_tasks=50)
+    crawler = ThreadPoolAsyncCrawler(max_workers=1, max_concurrent_tasks=50)
 
     start_time = time.time()
     results = crawler.crawl(urls)

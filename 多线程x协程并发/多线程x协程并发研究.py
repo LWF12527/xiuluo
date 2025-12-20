@@ -1,8 +1,9 @@
 import asyncio
 import concurrent.futures
-import aiohttp
-from typing import List
 import time
+from typing import List
+
+import aiohttp
 
 
 def run_async_in_thread(urls: List[str], thread_id: int, max_concurrent_tasks: int = 50):
@@ -51,7 +52,7 @@ async def fetch_url(url: str, session: aiohttp.ClientSession, thread_id: int):
         async with session.get(url) as response:
             # 读取完整的响应文本
             text = await response.text()
-            await asyncio.sleep(2)
+            # await asyncio.sleep(2)
             elapsed = time.time() - start
 
             # 判断响应文本长度是否大于10万字符
@@ -82,7 +83,7 @@ async def fetch_url(url: str, session: aiohttp.ClientSession, thread_id: int):
 class ThreadPoolAsyncCrawler:
     """使用线程池管理多个异步事件循环"""
 
-    def __init__(self, max_workers: int = 4, max_concurrent_tasks: int = 50):
+    def __init__(self, max_workers: int = 10, max_concurrent_tasks: int = 50):
         self.max_workers = max_workers
         self.max_concurrent_tasks = max_concurrent_tasks  # 每个线程的最大协程并发数
         self.executor = concurrent.futures.ThreadPoolExecutor(
@@ -129,28 +130,24 @@ class ThreadPoolAsyncCrawler:
         self.executor.shutdown(wait=True)
 
 
-def analyze_results(results):
-    """分析结果（保持不变）"""
-    # ... 原有的分析代码保持不变
-
-
 # 使用示例
 if __name__ == "__main__":
     test_urls = [
-        "https://fyndiq.se/produkt/iphone-6-7-8-se-skal-mobilskal-eminem-multifarg-ff05e4fba85d47a7/"
+        "https://fyndiq.se/produkt/coque-la-casa-de-papel-iphone-6-svart-mjuk-stotskydd-a8d0ce71f6fd411d/"
     ]
-
+    max_workers = 1
+    max_concurrent = 50
     urls = []
-    for i in range(500):
+    for i in range(10000):
         for base_url in test_urls:
             urls.append(f"{base_url}?request={i}")
 
     print(f"开始爬取 {len(urls)} 个URL...")
-    print(f"线程数: 10, 每个线程最大协程并发数: 50")
-    print(f"理论最大并发: 10线程 × 50协程 = 500并发")
+    print(f"线程数: {max_workers}, 每个线程最大协程并发数: {max_concurrent}")
+    print(f"理论最大并发: {max_workers * max_concurrent}并发")
 
     # 创建爬虫，设置线程数和协程并发数
-    crawler = ThreadPoolAsyncCrawler(max_workers=1, max_concurrent_tasks=50)
+    crawler = ThreadPoolAsyncCrawler(max_workers=max_workers, max_concurrent_tasks=max_concurrent)
 
     start_time = time.time()
     results = crawler.crawl(urls)
@@ -162,6 +159,4 @@ if __name__ == "__main__":
     print(f"完成请求数: {len(results)}")
     print(f"总耗时: {elapsed:.2f}秒")
     print(f"平均QPS: {len(results) / elapsed:.1f}")
-
-    analyze_results(results)
     crawler.shutdown()

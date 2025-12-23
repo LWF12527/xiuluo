@@ -52,7 +52,7 @@ async def fetch_url(url: str, session: aiohttp.ClientSession, thread_id: int):
         async with session.get(url) as response:
             # 读取完整的响应文本
             text = await response.text()
-            await asyncio.sleep(1)
+            # await asyncio.sleep(1)
             elapsed = time.time() - start
 
             # 判断响应文本长度是否大于10万字符
@@ -135,7 +135,7 @@ if __name__ == "__main__":
     test_urls = [
         "https://fyndiq.se/produkt/coque-la-casa-de-papel-iphone-6-svart-mjuk-stotskydd-a8d0ce71f6fd411d/"
     ]
-    max_workers = 10
+    max_workers = 1
     max_concurrent = 50
     urls = []
     for i in range(10000):
